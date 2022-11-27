@@ -16,6 +16,7 @@ onready var GameWorld = preload("res://world/world.tscn")
 var gameWorld : Node
 
 var Player = preload("res://player/player.tscn")
+var gamePlayers : Node
 
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_player_connected")
@@ -41,6 +42,7 @@ func _connected_ok():
 	rpc_id(1, "send_player_info", local_player_id, player_data)
 	gameWorld = GameWorld.instance()
 	add_child(gameWorld)
+	gamePlayers = gameWorld.get_node("Players")
 	var lobby = get_tree().get_root().get_node("Lobby")
 	lobby.queue_free()
 
@@ -82,3 +84,9 @@ remote func receive_players(players):
 
 remote func remove_player(player_id):
 	gameWorld.get_node("Players").remove_child(gameWorld.get_node("Players").get_node(str(player_id)))
+
+func process_player_input(input_vector):
+	rpc_unreliable_id(1, "process_player_input", local_player_id, input_vector)
+
+remote func update_player_position(id, position):
+	gamePlayers.get_node(str(id)).position = position

@@ -1,4 +1,4 @@
 [x] add function so when a player connects it is sent all players in the world
 [x] set up removal of player when it disconnects
-[] set up player movement via server-side
+[x] set up player movement via server-side
 

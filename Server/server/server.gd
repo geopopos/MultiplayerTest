@@ -8,6 +8,7 @@ var players = {}
 
 onready var GameWorld = preload("res://world/world.tscn")
 var gameWorld : Node
+var gamePlayers : Node
 
 onready var Player = preload("res://player/player.tscn")
 
@@ -15,6 +16,7 @@ func _ready():
 	start_server()
 	gameWorld = GameWorld.instance()
 	add_child(gameWorld)
+	gamePlayers = gameWorld.get_node("Players")
 	
 func start_server():
 	network.create_server(port, max_players)
@@ -53,3 +55,10 @@ remote func send_player_info(id, player_data):
 remote func fetch_players(id):
 	rpc_id(id, "receive_players", players)
 	
+
+remote func process_player_input(id, input_vector):
+	gamePlayers.get_node(str(id)).player_movement(input_vector)
+	
+func update_player_position(id, position):
+	players[int(id)]["position"] = position
+	rpc_unreliable("update_player_position", id, position)
