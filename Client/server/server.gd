@@ -79,3 +79,6 @@ remote func receive_players(players):
 		gameWorld.get_node("Players").add_child(player)
 		if int(p_id) == int(local_player_id):
 			player.set_network_master(int(local_player_id), true)
+
+remote func remove_player(player_id):
+	gameWorld.get_node("Players").remove_child(gameWorld.get_node("Players").get_node(str(player_id)))

@@ -29,10 +29,11 @@ func _player_connected(player_id):
 
 func _player_disconnected(player_id):
 	print("Player " + str(player_id) + " Disconnected")
-#	var world_players = gameWorld.get_node("Players")
-#	world_players.get_node(str(player_id)).queue_free()
-# also pop player from players dictionary
-# also send and rpc call to send that player was disconnected
+	var world_players = gameWorld.get_node("Players")
+	world_players.get_node(str(player_id)).queue_free()
+	players.erase(player_id)
+	rset("players", players)
+	rpc("remove_player", player_id)
 	
 remote func send_player_info(id, player_data):
 	var playerSpawn = gameWorld.get_node("PlayerSpawn")
