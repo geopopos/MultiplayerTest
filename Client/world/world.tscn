@@ -3,10 +3,3 @@
 [node name="World" type="Node2D"]
 
 [node name="Players" type="Node2D" parent="."]
-
-[node name="Label" type="Label" parent="."]
-margin_left = 335.0
-margin_top = 249.0
-margin_right = 461.0
-margin_bottom = 263.0
-text = "THIS IS THE WORLD"

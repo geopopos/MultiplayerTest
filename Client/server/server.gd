@@ -52,12 +52,30 @@ func _server_disconnected():
 	
 func register_player():
 	local_player_id = get_tree().get_network_unique_id()
-	players[local_player_id] = player_data
+	rpc_id(1, "fetch_players", local_player_id)
 	
 remote func receive_new_player(player_id, player_position, player_name):
 	var player = Player.instance()
+	
 	player.name = str(player_id)
 	player.position = player_position
 	var label = player.get_node("PlayerName")
 	label.text = player_name
-	gameWorld.add_child(player)
+	gameWorld.get_node("Players").add_child(player)
+	if int(player_id) == int(local_player_id):
+		player.set_network_master(int(local_player_id), true)
+	print(player.is_network_master())
+	if player.is_network_master():
+		print("is network master")
+		player.modulate = Color(0, 1, 0)
+
+remote func receive_players(players):
+	for p_id in players:
+		var player = Player.instance()
+		player.name = str(p_id)
+		player.position = players[p_id]["position"]
+		var label = player.get_node("PlayerName")
+		label.text = players[p_id]["player_name"]
+		gameWorld.get_node("Players").add_child(player)
+		if int(p_id) == int(local_player_id):
+			player.set_network_master(int(local_player_id), true)
