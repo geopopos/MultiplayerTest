@@ -3,4 +3,6 @@
 [x] set up player movement via server-side
 [x] update player animation managed client and server-side
 [x] add player camera
+[x] set up a tilemap world 
 [] set up player hitbox/hurtbox and have server do collision detection and damage calculations
+[] refactor player code into it's own node that is a child of the server node
