@@ -77,6 +77,7 @@ remote func receive_players(players):
 		var player = Player.instance()
 		player.name = str(p_id)
 		player.position = players[p_id]["position"]
+		player.get_node("Sprite").flip_h = players[p_id]["flip_h"]
 		var label = player.get_node("PlayerName")
 		label.text = players[p_id]["player_name"]
 		gameWorld.get_node("Players").add_child(player)

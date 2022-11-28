@@ -60,6 +60,7 @@ remote func process_player_input(id, input_vector):
 func update_player_position(id, position, flip_h, animation):
 	var player = players[int(id)]
 	player["position"] = position
+	player["flip_h"] = flip_h
 	rpc_unreliable("update_player_position", id, position, flip_h, animation)
 
 remote func set_player_idle(id):
