@@ -95,7 +95,8 @@ remote func set_up_world(players, grassTilemapDict, layer1TilemapDict, tileset):
 			cell.y = column_key
 			var cellData = layer1TilemapDict[row_key][column_key]
 			var tile_id = cellData["tile_id"]
-			layer1TileMap.set_cellv(cell, tile_id)
+			var auto_tile_coord = cellData["auto_tile_coord"]
+			layer1TileMap.set_cell(cell.x, cell.y, tile_id, false, false, false, auto_tile_coord)
 	
 	# create grasstilemap
 	var grassTileMap = TileMapBlank.instance()

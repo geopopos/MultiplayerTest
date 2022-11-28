@@ -43,7 +43,8 @@ func _ready():
 		var tile_id = layer1Tilemap.get_cellv(cell)
 		layer1TilemapDict[cell.x][cell.y] = {
 				"position": cell,
-				"tile_id": tile_id
+				"tile_id": tile_id,
+				"auto_tile_coord": layer1Tilemap.get_cell_autotile_coord(cell.x, cell.y)
 			}
 	# load tileset file data to send
 	var file = File.new()

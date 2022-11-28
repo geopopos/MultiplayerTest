@@ -14,7 +14,7 @@
 [x] update player loading function to include direction
 [x] BFIX: fix knockback to use move and slide instead of setting global_position
 [x] set up server to share player playing Attack animation
-[] share game tilemap and tileset resource from server to client on world load
-   [] make update for autotiling to work
+[x] share game tilemap and tileset resource from server to client on world load
+   [x] make update for autotiling to work
 [] set authentication server
    https://www.youtube.com/watch?v=6pfN6NFxQQc
