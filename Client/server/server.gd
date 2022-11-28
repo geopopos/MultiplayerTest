@@ -70,7 +70,7 @@ remote func receive_new_player(player_id, player_position, player_name):
 	print(player.is_network_master())
 	if player.is_network_master():
 		print("is network master")
-		player.modulate = Color(0, 1, 0)
+		player.get_node("PlayerName").self_modulate = Color(0, 1, 0)
 
 remote func receive_players(players):
 	for p_id in players:
