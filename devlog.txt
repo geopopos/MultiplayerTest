@@ -2,5 +2,5 @@
 [x] set up removal of player when it disconnects
 [x] set up player movement via server-side
 [x] update player animation managed client and server-side
-[] add player camera
+[x] add player camera
 [] set up player hitbox/hurtbox and have server do collision detection and damage calculations

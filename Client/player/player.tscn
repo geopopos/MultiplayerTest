@@ -55,12 +55,14 @@ shape = SubResource( 1 )
 
 [node name="PlayerName" type="Label" parent="."]
 margin_left = -32.0
-margin_top = 20.0
+margin_top = 3.0
 margin_right = 32.0
-margin_bottom = 34.0
+margin_bottom = 17.0
 align = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
 anims/Idle = SubResource( 2 )
 anims/Walking = SubResource( 3 )
+
+[node name="Camera2D" type="Camera2D" parent="."]

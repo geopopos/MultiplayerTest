@@ -66,6 +66,7 @@ remote func receive_new_player(player_id, player_position, player_name):
 	gameWorld.get_node("Players").add_child(player)
 	if int(player_id) == int(local_player_id):
 		player.set_network_master(int(local_player_id), true)
+		player.get_node("Camera2D").current = true
 	print(player.is_network_master())
 	if player.is_network_master():
 		print("is network master")
