@@ -105,9 +105,7 @@ remote func set_up_world(players, grassTilemapDict, layer1TilemapDict, tileset):
 	gameWorld.move_child(grassTileMap, 0)
 	for row_key in grassTilemapDict:
 		var cell = Vector2(row_key, 0)
-		print(grassTilemapDict[row_key].keys())
 		for column_key in grassTilemapDict[row_key]:
-			print(column_key)
 			cell.y = column_key
 			var cellData = grassTilemapDict[row_key][column_key]
 			var tile_id = cellData["tile_id"]
