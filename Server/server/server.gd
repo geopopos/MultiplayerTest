@@ -14,11 +14,43 @@ onready var Player = preload("res://player/player.tscn")
 
 onready var playerSpawning : Node = $PlayerSpawning
 
+var grassTilemap : Node
+var layer1Tilemap : Node
+var grassTilemapDict: Dictionary
+var layer1TilemapDict: Dictionary
+var tileset
+
 func _ready():
 	start_server()
 	gameWorld = GameWorld.instance()
 	add_child(gameWorld)
 	gamePlayers = gameWorld.get_node("Players")
+	grassTilemap = gameWorld.get_node("Grass")
+	var grassTilemapCells = grassTilemap.get_used_cells()
+	for cell in grassTilemapCells:
+		if not grassTilemapDict.has(cell.x):
+			grassTilemapDict[cell.x] = {}
+		var tile_id = grassTilemap.get_cellv(cell)
+		grassTilemapDict[cell.x][cell.y] = {
+				"position": cell,
+				"tile_id": tile_id
+			}
+	layer1Tilemap = gameWorld.get_node("Layer1")
+	var layer1TilemapCells = layer1Tilemap.get_used_cells()
+	for cell in layer1TilemapCells:
+		if not layer1TilemapDict.has(cell.x):
+			layer1TilemapDict[cell.x] = {}
+		var tile_id = layer1Tilemap.get_cellv(cell)
+		layer1TilemapDict[cell.x][cell.y] = {
+				"position": cell,
+				"tile_id": tile_id
+			}
+	# load tileset file data to send
+	var file = File.new()
+	file.open("res://world/worldtileset.tres", File.READ)
+	tileset = file.get_as_text()
+	file.close()
+	
 	
 func start_server():
 	network.create_server(port, max_players)
@@ -46,7 +78,7 @@ remote func send_player_info(id, player_data):
 	player_data = playerSpawning.set_up_player(id, label, player, gameWorld, playerSpawn, player_data)
 	players[id] = player_data
 	rset("players", players)
-	rpc_id(id, "set_up_world", players)
+	rpc_id(id, "set_up_world", players, grassTilemapDict, layer1TilemapDict, tileset)
 	rpc("receive_new_player", id, player.position, player_data["player_name"])
 
 remote func fetch_players(id):

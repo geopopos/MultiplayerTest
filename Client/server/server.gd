@@ -18,6 +18,8 @@ var gameWorld : Node
 var Player = preload("res://player/player.tscn")
 var gamePlayers : Node
 
+onready var TileMapBlank = preload("res://tilemap.tscn")
+
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
@@ -71,6 +73,47 @@ remote func receive_new_player(player_id, player_position, player_name):
 	if player.is_network_master():
 		print("is network master")
 		player.get_node("PlayerName").self_modulate = Color(0, 1, 0)
+
+remote func set_up_world(players, grassTilemapDict, layer1TilemapDict, tileset):
+	# write tileset to file
+	var file = File.new()
+	file.open("res://world/worldtileset.tres", File.WRITE)
+	file.store_string(tileset)
+	file.close()
+	
+	## add tilemaps by highest to lowest (furthest back map usually background should be loaded last)
+	# create layer1tilemap
+	var layer1TileMap = TileMapBlank.instance()
+	layer1TileMap.set_tileset(load("res://world/worldtileset.tres"))
+	gameWorld.add_child(layer1TileMap)
+	gameWorld.move_child(layer1TileMap, 0)
+	for row_key in layer1TilemapDict:
+		var cell = Vector2(row_key, 0)
+		print(layer1TilemapDict[row_key].keys())
+		for column_key in layer1TilemapDict[row_key]:
+			print(column_key)
+			cell.y = column_key
+			var cellData = layer1TilemapDict[row_key][column_key]
+			var tile_id = cellData["tile_id"]
+			layer1TileMap.set_cellv(cell, tile_id)
+	
+	# create grasstilemap
+	var grassTileMap = TileMapBlank.instance()
+	grassTileMap.set_tileset(load("res://world/worldtileset.tres"))
+	gameWorld.add_child(grassTileMap)
+	gameWorld.move_child(grassTileMap, 0)
+	for row_key in grassTilemapDict:
+		var cell = Vector2(row_key, 0)
+		print(grassTilemapDict[row_key].keys())
+		for column_key in grassTilemapDict[row_key]:
+			print(column_key)
+			cell.y = column_key
+			var cellData = grassTilemapDict[row_key][column_key]
+			var tile_id = cellData["tile_id"]
+			grassTileMap.set_cellv(cell, tile_id)
+			
+			
+	
 
 remote func receive_players(players):
 	for p_id in players:
