@@ -4,5 +4,9 @@
 [x] update player animation managed client and server-side
 [x] add player camera
 [x] set up a tilemap world 
+[-] Update server to push transform instead of flip_h by itself
+    Can't be done flip_h comes from the sprites offset category
+[] create a child node of server to to to handle PlayerSetup and PlayerMovement
 [] set up player hitbox/hurtbox and have server do collision detection and damage calculations
-[] refactor player code into it's own node that is a child of the server node
+[] set authentication server
+   https://www.youtube.com/watch?v=6pfN6NFxQQc

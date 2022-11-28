@@ -11,6 +11,8 @@ var gameWorld : Node
 var gamePlayers : Node
 
 onready var Player = preload("res://player/player.tscn")
+onready var playerMovement : Node = $PlayerMovement
+onready var playerSpawning : Node = $PlayerSpawning
 
 func _ready():
 	start_server()
@@ -40,15 +42,10 @@ func _player_disconnected(player_id):
 remote func send_player_info(id, player_data):
 	var playerSpawn = gameWorld.get_node("PlayerSpawn")
 	var player = Player.instance()
-	player.name = str(id)
 	var label = player.get_node("PlayerName")
-	label.text = player_data["player_name"]
-	gameWorld.get_node("Players").add_child(player)
-	player.position = playerSpawn.position
-	player_data["position"] = player.position
+	player_data = playerSpawning.set_up_player(id, label, player, gameWorld, playerSpawn, player_data)
 	players[id] = player_data
 	rset("players", players)
-	# finish set up of this RPC CALL
 	rpc_id(id, "set_up_world", players)
 	rpc("receive_new_player", id, player.position, player_data["player_name"])
 
@@ -57,14 +54,16 @@ remote func fetch_players(id):
 	
 
 remote func process_player_input(id, input_vector):
-	gamePlayers.get_node(str(id)).player_movement(input_vector)
+	var player = gamePlayers.get_node(str(id))
+	player.player_movement(input_vector)
 	
 func update_player_position(id, position, flip_h, animation):
-	players[int(id)]["position"] = position
+	var player = players[int(id)]
+	player["position"] = position
 	rpc_unreliable("update_player_position", id, position, flip_h, animation)
 
 remote func set_player_idle(id):
-	print("set player idle")
-	gamePlayers.get_node(str(id)).set_idle()
+	var player = gamePlayers.get_node(str(id))
+	player.set_idle()
 	rpc("set_player_animation", id, "Idle")
 	
