@@ -12,7 +12,8 @@ var input_direction : Vector2
 
 enum {
 	MOVE,
-	ATTACK
+	ATTACK,
+	HURT
 }
 
 var state = MOVE setget set_state
@@ -60,3 +61,11 @@ func attack_state():
 func attack_animation_finished():
 	set_state(MOVE)
 	animationPlayer.play("Idle")
+
+func take_damage():
+	set_state(HURT)
+	animationPlayer.play("Hurt")
+	
+func on_hurt_animation_finished():
+	set_state(MOVE)
+	

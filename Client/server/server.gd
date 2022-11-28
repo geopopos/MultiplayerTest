@@ -110,3 +110,4 @@ func send_player_attacked():
 remote func set_player_knockback(id, global_position):
 	var player = gamePlayers.get_node(str(id))
 	player.global_position = global_position
+	player.take_damage()
