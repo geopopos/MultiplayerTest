@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/player_sprites/player.png" type="Texture" id=1]
 [ext_resource path="res://player/player.gd" type="Script" id=2]
+[ext_resource path="res://player/hitbox.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 3.0
@@ -117,6 +118,7 @@ anims/Walking = SubResource( 3 )
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 0
 collision_mask = 12
+script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2( 12.5, -2 )

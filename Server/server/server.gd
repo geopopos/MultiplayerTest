@@ -11,7 +11,7 @@ var gameWorld : Node
 var gamePlayers : Node
 
 onready var Player = preload("res://player/player.tscn")
-onready var playerMovement : Node = $PlayerMovement
+
 onready var playerSpawning : Node = $PlayerSpawning
 
 func _ready():
@@ -61,6 +61,7 @@ func update_player_position(id, position, flip_h, animation):
 	var player = players[int(id)]
 	player["position"] = position
 	player["flip_h"] = flip_h
+	rset("players", players)
 	rpc_unreliable("update_player_position", id, position, flip_h, animation)
 
 remote func set_player_idle(id):
@@ -68,7 +69,14 @@ remote func set_player_idle(id):
 	player.set_idle()
 	rpc("set_player_animation", id, "Idle")
 
+
+## combat code
 remote func player_triggered_attack(id):
 	var player = gamePlayers.get_node(str(id))
 	player.start_attack()
 	
+func send_player_damage(name, health, global_position):
+	# add updating player health here as well
+	players[int(name)]["health"] = health
+	rset("players", players)
+	rpc("set_player_knockback", name, global_position)

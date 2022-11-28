@@ -106,3 +106,7 @@ remote func set_player_animation(id, animation):
 ## combat system
 func send_player_attacked():
 	rpc_id(1, "player_triggered_attack", local_player_id)
+	
+remote func set_player_knockback(id, global_position):
+	var player = gamePlayers.get_node(str(id))
+	player.global_position = global_position

@@ -28,6 +28,8 @@ func _process(_delta):
 				move_state()
 			ATTACK:
 				attack_state()
+	else:
+		pass
 
 	
 	

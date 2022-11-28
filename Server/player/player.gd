@@ -4,6 +4,10 @@ const MAXSPEED: int = 80
 var velocity : Vector2 = Vector2.ZERO
 var Server : Node
 
+var health = 3
+var receives_knockback = true
+var knockback_multiplier = 15
+
 onready var sprite = $Sprite
 onready var animationPlayer = $AnimationPlayer
 onready var hitboxCollision = $HitBox/CollisionShape2D
@@ -46,4 +50,16 @@ func _on_attack_animation_finished():
 	animationPlayer.play("Idle")
 
 func _on_HurtBox_area_entered(area):
-	print(str(name) + " Got An Ouchie")
+	var damage = area.damage
+	health -= damage
+	var attacker = area.get_parent()
+	received_knockback(attacker, damage)
+	Server.send_player_damage(name, health, global_position)
+
+func received_knockback(attacker: Node, damage: int):
+	if receives_knockback:
+		var knockback_direction = attacker.position.direction_to(self.global_position)
+		var knockback_strength = damage * knockback_multiplier
+		var knockback = knockback_direction * knockback_strength
+		
+		global_position += knockback
