@@ -6,7 +6,11 @@
 [x] set up a tilemap world 
 [-] Update server to push transform instead of flip_h by itself
     Can't be done flip_h comes from the sprites offset category
-[] create a child node of server to to to handle PlayerSetup and PlayerMovement
-[] set up player hitbox/hurtbox and have server do collision detection and damage calculations
+[x] create a child node of server to to to handle PlayerSetup and PlayerMovement
+[] set up player hitbox/hurtbox and have server do 
+   [x] collision detection 
+   [] damage calculations
+   [] calculate knockback and share with clients
+[] update player loading function to include direction
 [] set authentication server
    https://www.youtube.com/watch?v=6pfN6NFxQQc

@@ -101,3 +101,7 @@ func set_player_idle():
 remote func set_player_animation(id, animation):
 	var player = gamePlayers.get_node(str(id))
 	player.get_node("AnimationPlayer").play(animation)
+	
+## combat system
+func send_player_attacked():
+	rpc_id(1, "player_triggered_attack", local_player_id)

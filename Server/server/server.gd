@@ -66,4 +66,8 @@ remote func set_player_idle(id):
 	var player = gamePlayers.get_node(str(id))
 	player.set_idle()
 	rpc("set_player_animation", id, "Idle")
+
+remote func player_triggered_attack(id):
+	var player = gamePlayers.get_node(str(id))
+	player.start_attack()
 	
