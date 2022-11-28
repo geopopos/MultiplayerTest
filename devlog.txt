@@ -1,4 +1,5 @@
 [x] add function so when a player connects it is sent all players in the world
 [x] set up removal of player when it disconnects
 [x] set up player movement via server-side
-
+[x] update player animation managed client and server-side
+[] set up player hitbox/hurtbox and have server do collision detection and damage calculations

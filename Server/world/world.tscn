@@ -5,4 +5,4 @@
 [node name="Players" type="Node2D" parent="."]
 
 [node name="PlayerSpawn" type="Position2D" parent="."]
-position = Vector2( 496, 282 )
+position = Vector2( 149, 92 )

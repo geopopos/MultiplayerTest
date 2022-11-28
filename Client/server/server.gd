@@ -88,5 +88,15 @@ remote func remove_player(player_id):
 func process_player_input(input_vector):
 	rpc_unreliable_id(1, "process_player_input", local_player_id, input_vector)
 
-remote func update_player_position(id, position):
-	gamePlayers.get_node(str(id)).position = position
+remote func update_player_position(id, position, flip_h, animation):
+	var player = gamePlayers.get_node(str(id))
+	player.position = position
+	player.get_node("Sprite").flip_h = flip_h
+	player.get_node("AnimationPlayer").play(animation)
+	
+func set_player_idle():
+	rpc_id(1, "set_player_idle", local_player_id)
+	
+remote func set_player_animation(id, animation):
+	var player = gamePlayers.get_node(str(id))
+	player.get_node("AnimationPlayer").play(animation)

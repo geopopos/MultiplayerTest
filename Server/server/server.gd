@@ -59,6 +59,12 @@ remote func fetch_players(id):
 remote func process_player_input(id, input_vector):
 	gamePlayers.get_node(str(id)).player_movement(input_vector)
 	
-func update_player_position(id, position):
+func update_player_position(id, position, flip_h, animation):
 	players[int(id)]["position"] = position
-	rpc_unreliable("update_player_position", id, position)
+	rpc_unreliable("update_player_position", id, position, flip_h, animation)
+
+remote func set_player_idle(id):
+	print("set player idle")
+	gamePlayers.get_node(str(id)).set_idle()
+	rpc("set_player_animation", id, "Idle")
+	
