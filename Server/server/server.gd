@@ -74,6 +74,7 @@ remote func set_player_idle(id):
 remote func player_triggered_attack(id):
 	var player = gamePlayers.get_node(str(id))
 	player.start_attack()
+	rpc("receive_player_attack", id)
 	
 func send_player_damage(name, health, global_position):
 	# add updating player health here as well

@@ -24,13 +24,11 @@ func set_state(value):
 func _process(_delta):
 	if is_network_master():
 		input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-		match state:
-			MOVE:
-				move_state()
-			ATTACK:
-				attack_state()
-	else:
-		pass
+	match state:
+		MOVE:
+			move_state()
+		ATTACK:
+			attack_state()
 
 	
 	
@@ -46,7 +44,7 @@ func move_state():
 		Server.set_player_idle()
 		move_on = false
 	
-	if Input.is_action_just_pressed("attack"):
+	if Input.is_action_just_pressed("attack") and is_network_master():
 		Server.send_player_attacked()
 		set_state(ATTACK)
 
