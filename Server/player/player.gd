@@ -62,4 +62,4 @@ func received_knockback(attacker: Node, damage: int):
 		var knockback_strength = damage * knockback_multiplier
 		var knockback = knockback_direction * knockback_strength
 		
-		global_position += knockback
+		move_and_slide(knockback * 100)

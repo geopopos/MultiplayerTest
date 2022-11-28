@@ -12,5 +12,7 @@
    [x] damage calculations
    [x] calculate knockback and share with clients
 [x] update player loading function to include direction
+[x] BFIX: fix knockback to use move and slide instead of setting global_position
+[] share game tilemap and tileset resource from server to client on world load
 [] set authentication server
    https://www.youtube.com/watch?v=6pfN6NFxQQc
