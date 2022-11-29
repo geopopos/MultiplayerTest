@@ -14,6 +14,10 @@ config/name="Server"
 run/main_scene="res://server/server.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Serverdata="*res://server/serverdata.gd"
+
 [display]
 
 window/size/width=320

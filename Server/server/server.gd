@@ -2,10 +2,11 @@ extends Node
 
 var network = NetworkedMultiplayerENet.new()
 var port = 3234
-var max_players = 4
+var max_players = 100
 
 var players = {}
 
+onready var player_verification_process = get_node("PlayerVerification")
 onready var GameWorld = preload("res://world/world.tscn")
 var gameWorld : Node
 var gamePlayers : Node
@@ -63,12 +64,14 @@ func start_server():
 
 func _player_connected(player_id):
 	print("Player " + str(player_id) + " Connected")
+	player_verification_process.start(player_id)
 
 func _player_disconnected(player_id):
 	print("Player " + str(player_id) + " Disconnected")
 	var world_players = gameWorld.get_node("Players")
 	world_players.get_node(str(player_id)).queue_free()
 	players.erase(player_id)
+	get_node(str(player_id)).queue_free()
 	rset("players", players)
 	rpc("remove_player", player_id)
 	

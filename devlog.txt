@@ -18,6 +18,15 @@
    [x] make update for autotiling to work
 [x] set authentication server
    https://www.youtube.com/watch?v=6pfN6NFxQQc
+[x] set up player container
+   https://www.youtube.com/watch?v=y_3f_QXmvU8&list=PLZ-54sd-DMAKU8Neo5KsVmq8KtoDkfi4s&index=5
+  [] later I will want to use this to store all player data, position, inventory, flip_h, etc
+
+
+[] update all calls to add child that add a node with the name ID to be add_child(NODE, true) <- that way godot will 100% use the name we set.
+
+[] set up player data storage
+https://www.youtube.com/watch?v=y_3f_QXmvU8&list=PLZ-54sd-DMAKU8Neo5KsVmq8KtoDkfi4s&index=5
 
 [] set up asset download function [only changed on update otherwise data should be stored locally
    [] tilemaps
