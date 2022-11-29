@@ -4,6 +4,8 @@ var network = NetworkedMultiplayerENet.new()
 var port = 3234
 var max_players = 100
 
+var expected_tokens = []
+
 var players = {}
 
 onready var player_verification_process = get_node("PlayerVerification")

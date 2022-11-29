@@ -17,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 PlayerData="*res://Scenes/Singletons/PlayerData.gd"
+GameServers="*res://Scenes/Singletons/GameServers.gd"
 
 [gui]
 

@@ -50,9 +50,10 @@ func RequestLogin():
 	username = ""
 	password = ""
 	
-remote func ReturnLoginRequest(result):
+remote func ReturnLoginRequest(result, token):
 	print("results received")
 	if result == true:
+		Server.token = token
 		Server.player_data = {"player_name": username}
 		Server._connect_to_server()
 	else:
