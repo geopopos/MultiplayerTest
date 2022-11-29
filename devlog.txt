@@ -16,7 +16,7 @@
 [x] set up server to share player playing Attack animation
 [x] share game tilemap and tileset resource from server to client on world load
    [x] make update for autotiling to work
-[] set authentication server
+[x] set authentication server
    https://www.youtube.com/watch?v=6pfN6NFxQQc
 
 [] set up asset download function [only changed on update otherwise data should be stored locally
