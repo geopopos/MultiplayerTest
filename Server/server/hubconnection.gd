@@ -24,7 +24,7 @@ func ConnectToServer():
 	custom_multiplayer.set_network_peer(network)
 	
 	network.connect("connection_failed", self, "_on_connnection_failed")
-	network.connect("connection_succeeded", self, "_on_connnection_succeeded")
+	network.connect("connection_succeeded", self, "_on_connection_succeeded")
 	
 func _on_connection_failed():
 	print("Failed to connect to Game Server Hub")

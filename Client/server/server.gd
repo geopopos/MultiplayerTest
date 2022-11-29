@@ -9,6 +9,7 @@ var selected_ip
 var selected_port
 
 var token
+var verification_result = false
 
 var local_player_id = 0
 sync var players = {}
@@ -42,13 +43,18 @@ func _player_disconnected(id):
 	
 func _connected_ok():
 	print("Successfully Connected To Server")
-	register_player()
-	rpc_id(1, "send_player_info", local_player_id, player_data)
-	gameWorld = GameWorld.instance()
-	add_child(gameWorld)
-	gamePlayers = gameWorld.get_node("Players")
-	var lobby = get_tree().get_root().get_node("Lobby")
-	lobby.queue_free()
+#	var lobby = get_tree().get_root().get_node("Lobby")
+#	if verification_result == true:
+#		register_player()
+#		rpc_id(1, "send_player_info", local_player_id, player_data)
+#		gameWorld = GameWorld.instance()
+#		add_child(gameWorld)
+#		gamePlayers = gameWorld.get_node("Players")
+#		var lobby = get_tree().get_root().get_node("Lobby")
+#		lobby.queue_free()
+#	else:
+#		var label = lobby.get_node("CenterContainer/VBoxContainer/Label")
+#		label.text = "Authentication failed, please try again"
 
 func _connected_failed():
 	print("Failed To Connect Server")
@@ -169,7 +175,15 @@ remote func FetchToken():
 remote func ReturnTokenVerificationResults(result):
 	if result == true:
 		# run logic to start game
+		verification_result = result
 		print("Successful Token Verification")
+		register_player()
+		rpc_id(1, "send_player_info", local_player_id, player_data)
+		gameWorld = GameWorld.instance()
+		add_child(gameWorld)
+		gamePlayers = gameWorld.get_node("Players")
+		var lobby = get_tree().get_root().get_node("Lobby")
+		lobby.queue_free()
 	else:
 		print("Login, failed please try again")
 		var lobby = get_tree().get_root().get_node("Lobby")
