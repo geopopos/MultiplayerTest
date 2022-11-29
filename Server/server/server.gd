@@ -66,7 +66,7 @@ func start_server():
 
 func _player_connected(player_id):
 	print("Player " + str(player_id) + " Connected")
-	player_verification_process.start(player_id)
+	player_verification_process.Start(player_id)
 
 func _player_disconnected(player_id):
 	print("Player " + str(player_id) + " Disconnected")
@@ -119,3 +119,28 @@ func send_player_damage(name, health, global_position):
 	players[int(name)]["health"] = health
 	rset("players", players)
 	rpc("set_player_knockback", name, global_position)
+
+
+func _on_TokenExpiration_timeout():
+	var current_time = OS.get_unix_time()
+	var token_time
+	if expected_tokens.empty():
+		pass
+	else:
+		for i in range(expected_tokens.size, -1, -1, -1):
+			token_time = int(expected_tokens[i].right(64))
+			if current_time - token_time >= 30:
+				expected_tokens.remove(i)
+		print("Expected Tokens:")
+		print(expected_tokens)
+		
+func FetchToken(player_id):
+	rpc_id(player_id, "FetchToken")
+
+remote func ReturnToken(token):
+	var player_id = get_tree().get_rpc_sender_id()
+	player_verification_process.Verify(player_id, token)
+	
+func ReturnTokenVerificationResults(player_id, result):
+	rpc_id(player_id, "ReturnTokenVerificationResults", result)
+	

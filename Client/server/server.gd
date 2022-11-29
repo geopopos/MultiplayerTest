@@ -160,3 +160,18 @@ remote func receive_player_attack(id):
 	print("received_player_attack")
 	var player = gamePlayers.get_node(str(id))
 	player.set_state(1)
+	
+
+## player verification system
+remote func FetchToken():
+	rpc_id(1, "ReturnToken", token)
+
+remote func ReturnTokenVerificationResults(result):
+	if result == true:
+		# run logic to start game
+		print("Successful Token Verification")
+	else:
+		print("Login, failed please try again")
+		var lobby = get_tree().get_root().get_node("Lobby")
+		lobby.get_node("CenterContainer/VBoxContainer/Button").disabled = false
+		
