@@ -33,3 +33,8 @@ https://www.youtube.com/watch?v=y_3f_QXmvU8&list=PLZ-54sd-DMAKU8Neo5KsVmq8KtoDkf
 [] set up asset download function [only changed on update otherwise data should be stored locally
    [] tilemaps
    [] visual assets
+
+
+BEFORE RELEASE
+[] buy a cert from a 3rd party
+https://www.youtube.com/watch?v=gcopx40pwvY&list=PLZ-54sd-DMAKU8Neo5KsVmq8KtoDkfi4s&index=8&t=547s

@@ -5,6 +5,8 @@ var gateway_api = MultiplayerAPI.new()
 var ip = "127.0.0.1"
 var port = 1910
 var max_players = 100
+var cert = load("res://certificate/X509_Certificate.crt")
+var key = load("res://certificate/x509_Key.key")
 
 
 func _ready():
@@ -16,6 +18,9 @@ func _process(delta):
 	custom_multiplayer.poll()
 
 func StartServer():
+	network.set_dtls_enabled(true)
+	network.set_dtls_key(key)
+	network.set_dtls_certificate(cert)
 	network.create_server(port, max_players)
 	set_custom_multiplayer(gateway_api)
 	custom_multiplayer.set_root_node(self)
