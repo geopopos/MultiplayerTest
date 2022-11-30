@@ -12,6 +12,7 @@ func _on_Button_pressed():
 		login_button.disabled = true
 		var username = username_input.text
 		var password = userpassword_input.text
+		Server.player_data["player_name"] = username
 		print("attempting to login")
 		Gateway.ConnectToServer(username, password)
 #	if line_edit.text.empty():

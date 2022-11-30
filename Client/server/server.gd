@@ -73,7 +73,7 @@ remote func receive_new_player(player_id, player_position, player_name):
 	player.position = player_position
 	var label = player.get_node("PlayerName")
 	label.text = player_name
-	gameWorld.get_node("Players").add_child(player)
+	gameWorld.get_node("Players").add_child(player, true)
 	if int(player_id) == int(local_player_id):
 		player.set_network_master(int(local_player_id), true)
 		player.get_node("Camera2D").current = true
@@ -130,6 +130,7 @@ remote func receive_players(players):
 		player.get_node("Sprite").flip_h = players[p_id]["flip_h"]
 		var label = player.get_node("PlayerName")
 		label.text = players[p_id]["player_name"]
+		print("Player name: " + players[p_id]["player_name"])
 		gameWorld.get_node("Players").add_child(player)
 		if int(p_id) == int(local_player_id):
 			player.set_network_master(int(local_player_id), true)
@@ -173,11 +174,13 @@ remote func FetchToken():
 	rpc_id(1, "ReturnToken", token)
 
 remote func ReturnTokenVerificationResults(result):
+	print("ReturnTokenVerificationResults Called")
 	if result == true:
 		# run logic to start game
 		verification_result = result
 		print("Successful Token Verification")
 		register_player()
+		player_data 
 		rpc_id(1, "send_player_info", local_player_id, player_data)
 		gameWorld = GameWorld.instance()
 		add_child(gameWorld)

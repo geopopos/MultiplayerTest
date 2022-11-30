@@ -85,6 +85,7 @@ remote func send_player_info(id, player_data):
 	players[id] = player_data
 	rset("players", players)
 	rpc_id(id, "set_up_world", players, grassTilemapDict, layer1TilemapDict, tileset)
+	print("Player Name: " + player_data["player_name"])
 	rpc("receive_new_player", id, player.position, player_data["player_name"])
 
 remote func fetch_players(id):
