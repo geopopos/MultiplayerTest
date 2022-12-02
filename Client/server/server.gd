@@ -190,5 +190,5 @@ remote func ReturnTokenVerificationResults(result):
 	else:
 		print("Login, failed please try again")
 		var lobby = get_tree().get_root().get_node("Lobby")
-		lobby.get_node("CenterContainer/VBoxContainer/Button").disabled = false
+		lobby.get_node("CenterContainer/Login/Button").disabled = false
 		

@@ -11,37 +11,96 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="Login" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 60.0
-margin_top = 26.0
+margin_top = 9.0
 margin_right = 260.0
-margin_bottom = 153.0
+margin_bottom = 171.0
 rect_min_size = Vector2( 200, 0 )
 custom_constants/separation = 15
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="CenterContainer/Login"]
 margin_right = 200.0
 margin_bottom = 14.0
 text = "Login"
 align = 1
 
-[node name="Username" type="LineEdit" parent="CenterContainer/VBoxContainer"]
+[node name="Username" type="LineEdit" parent="CenterContainer/Login"]
 margin_top = 29.0
 margin_right = 200.0
 margin_bottom = 53.0
 placeholder_text = "Username"
 
-[node name="Password" type="LineEdit" parent="CenterContainer/VBoxContainer"]
+[node name="Password" type="LineEdit" parent="CenterContainer/Login"]
 margin_top = 68.0
 margin_right = 200.0
 margin_bottom = 92.0
 secret = true
 placeholder_text = "Password"
 
-[node name="Button" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="CenterContainer/Login"]
 margin_top = 107.0
 margin_right = 200.0
 margin_bottom = 127.0
 text = "Join Game"
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]
+[node name="CreateAccount" type="Button" parent="CenterContainer/Login"]
+margin_top = 142.0
+margin_right = 200.0
+margin_bottom = 162.0
+text = "Create Account"
+
+[node name="Register" type="VBoxContainer" parent="CenterContainer"]
+visible = false
+margin_left = 60.0
+margin_right = 260.0
+margin_bottom = 180.0
+rect_min_size = Vector2( 200, 0 )
+custom_constants/separation = 5
+
+[node name="Label" type="Label" parent="CenterContainer/Register"]
+margin_right = 200.0
+margin_bottom = 14.0
+text = "Create Account"
+align = 1
+
+[node name="Username" type="LineEdit" parent="CenterContainer/Register"]
+margin_top = 19.0
+margin_right = 200.0
+margin_bottom = 43.0
+placeholder_text = "Username"
+
+[node name="Email" type="LineEdit" parent="CenterContainer/Register"]
+margin_top = 48.0
+margin_right = 200.0
+margin_bottom = 72.0
+placeholder_text = "Email"
+
+[node name="Password" type="LineEdit" parent="CenterContainer/Register"]
+margin_top = 77.0
+margin_right = 200.0
+margin_bottom = 101.0
+secret = true
+placeholder_text = "Password"
+
+[node name="Password2" type="LineEdit" parent="CenterContainer/Register"]
+margin_top = 106.0
+margin_right = 200.0
+margin_bottom = 130.0
+secret = true
+placeholder_text = "Repeat Password"
+
+[node name="Button" type="Button" parent="CenterContainer/Register"]
+margin_top = 135.0
+margin_right = 200.0
+margin_bottom = 155.0
+text = "Sign Up"
+
+[node name="Back" type="Button" parent="CenterContainer/Register"]
+margin_top = 160.0
+margin_right = 200.0
+margin_bottom = 180.0
+text = "Back"
+
+[connection signal="pressed" from="CenterContainer/Login/Button" to="." method="_on_Button_pressed"]
+[connection signal="pressed" from="CenterContainer/Login/CreateAccount" to="." method="_on_CreateAccount_pressed"]

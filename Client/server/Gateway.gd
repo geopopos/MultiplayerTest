@@ -40,7 +40,7 @@ func ConnectToServer(_username, _password):
 func _on_connection_failed():
 	print("failed to connect to login server")
 	print("Pop-up server offline or something")
-	get_node("../Lobby/CenterContainer/VBoxContainer/Button").disabled = false
+	get_node("../Lobby/CenterContainer/Login/Button").disabled = false
 	# disbale login button below here
 
 func _on_connection_succeeded():
@@ -61,7 +61,7 @@ remote func ReturnLoginRequest(result, token):
 		Server._connect_to_server()
 	else:
 		print("Please provide valid username and password")
-		get_node("../Lobby/CenterContainer/VBoxContainer/Button").disabled = false
+		get_node("../Lobby/CenterContainer/Login/Button").disabled = false
 	network.disconnect("connection_failed", self, "_on_connection_failed")
 	network.disconnect("connection_succeeded", self, "_on_connection_succeeded")
 		

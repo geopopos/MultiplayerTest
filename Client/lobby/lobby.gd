@@ -1,9 +1,10 @@
 extends Control
 
-onready var label : Node = $CenterContainer/VBoxContainer/Label
-onready var username_input : Node = $CenterContainer/VBoxContainer/Username
-onready var userpassword_input : Node = $CenterContainer/VBoxContainer/Password
-onready var login_button : Node = $CenterContainer/VBoxContainer/Button
+# Login Nodes
+onready var label : Node = $CenterContainer/Login/Label
+onready var username_input : Node = $CenterContainer/Login/Username
+onready var userpassword_input : Node = $CenterContainer/Login/Password
+onready var login_button : Node = $CenterContainer/Login/Button
 
 func _on_Button_pressed():
 	if username_input.text.empty() or userpassword_input.text.empty():
@@ -21,3 +22,7 @@ func _on_Button_pressed():
 #	else:
 #		Server._connect_to_server()
 #		Server.player_data = {"player_name": line_edit.text}
+
+
+func _on_CreateAccount_pressed():
+	OS.shell_open("http://localhost:8000/register")

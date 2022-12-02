@@ -3,8 +3,12 @@ extends Node
 var network = NetworkedMultiplayerENet.new()
 var port = 1911
 var max_servers = 5
+
+onready var httpRequest = $HTTPRequest
+
 func _ready():
 	StartServer()
+
 func StartServer():
 	network.create_server(port, max_servers) 
 	get_tree().set_network_peer(network)
@@ -24,14 +28,34 @@ remote func AuthenticatePlayer(username, password, player_id):
 	var gateway_id = get_tree().get_rpc_sender_id()
 	var result
 	print("Starting Authentication")
-	if not PlayerData.PlayerIDs.has(username):
-		print("User is not recognized")
-		result = false
-	elif not PlayerData.PlayerIDs[username].Password == password:
-		print("incorrect password")
-		result = false
-	# eventually add a check here to see if the player is already logged in
+	var body = {
+		"username": username,
+		"password": password,
+		"token": token,
+		"gateway_id": str(gateway_id),
+		"player_id": str(player_id)
+	}
+	var query = JSON.print(body)
+	var headers = ["Content-Type: application/json"]
+	httpRequest.request("http://localhost:8000/login_user", headers, false, HTTPClient.METHOD_POST, query)
+	
+		
+	
+
+
+func _on_HTTPRequest_request_completed(result, response_code, headers, body):
+	var json = JSON.parse(body.get_string_from_utf8())
+	if json.result.has("error"):
+		if json.result["error"] == "user_not_exists":
+			print("User is not recognized")
+			result = false
+		if json.result["error"] == "incorrect_password":
+			print("incorrect password")
+			result = false
 	else:
+		var token = json.result["token"]
+		var gateway_id = int(json.result["gateway_id"])
+		var player_id = int(json.result["player_id"])
 		result = true
 		randomize()
 		var random_number = randi()
@@ -44,7 +68,5 @@ remote func AuthenticatePlayer(username, password, player_id):
 		print(token)
 		var gameserver = "GameServer1"
 		GameServers.DistributeLoginToken(token, gameserver)
-	print("authentication result send to gateway server")
-	rpc_id(gateway_id, "AuthenticationResults", result, player_id, token)
-		
-	
+		print("authentication result send to gateway server")
+		rpc_id(gateway_id, "AuthenticationResults", result, player_id, token)
