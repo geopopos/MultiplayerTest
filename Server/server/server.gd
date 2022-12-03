@@ -71,8 +71,9 @@ func _player_connected(player_id):
 func _player_disconnected(player_id):
 	print("Player " + str(player_id) + " Disconnected")
 	var world_players = gameWorld.get_node("Players")
-	world_players.get_node(str(player_id)).queue_free()
-	players.erase(player_id)
+	if  world_players.has_node(str(player_id)):
+		world_players.get_node(str(player_id)).queue_free()
+		players.erase(player_id)
 	get_node(str(player_id)).queue_free()
 	rset("players", players)
 	rpc("remove_player", player_id)

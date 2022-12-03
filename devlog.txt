@@ -27,6 +27,9 @@
 [x] update all calls to add child that add a node with the name ID to be add_child(NODE, true) <- that way godot will 100% use the name we set.
 [x] figure out why player labels disappeared
 
+[] update client to have world.gd process world state
+[] update player_movement to be client side, valdiation and syncing server side
+
 [] set up player data storage
 https://www.youtube.com/watch?v=y_3f_QXmvU8&list=PLZ-54sd-DMAKU8Neo5KsVmq8KtoDkfi4s&index=5
 
@@ -38,3 +41,4 @@ https://www.youtube.com/watch?v=y_3f_QXmvU8&list=PLZ-54sd-DMAKU8Neo5KsVmq8KtoDkf
 BEFORE RELEASE
 [] buy a cert from a 3rd party
 https://www.youtube.com/watch?v=gcopx40pwvY&list=PLZ-54sd-DMAKU8Neo5KsVmq8KtoDkfi4s&index=8&t=547s
+[] update url to hit actual authentication api

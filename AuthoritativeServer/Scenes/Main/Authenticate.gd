@@ -52,6 +52,9 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		if json.result["error"] == "incorrect_password":
 			print("incorrect password")
 			result = false
+		if json.result["error"] == "user_not_confirmed":
+			print("user has not yet confirmed their email")
+			result = false
 	else:
 		var token = json.result["token"]
 		var gateway_id = int(json.result["gateway_id"])

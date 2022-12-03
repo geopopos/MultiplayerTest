@@ -67,20 +67,7 @@ func register_player():
 	rpc_id(1, "fetch_players", local_player_id)
 	
 remote func receive_new_player(player_id, player_position, player_name):
-	var player = Player.instance()
-	
-	player.name = str(player_id)
-	player.position = player_position
-	var label = player.get_node("PlayerName")
-	label.text = player_name
-	gameWorld.get_node("Players").add_child(player, true)
-	if int(player_id) == int(local_player_id):
-		player.set_network_master(int(local_player_id), true)
-		player.get_node("Camera2D").current = true
-	print(player.is_network_master())
-	if player.is_network_master():
-		print("is network master")
-		player.get_node("PlayerName").self_modulate = Color(0, 1, 0)
+	gameWorld.spawn_new_player(player_id, player_position, player_name, false)
 
 remote func set_up_world(players, grassTilemapDict, layer1TilemapDict, tileset):
 	# write tileset to file
@@ -124,19 +111,13 @@ remote func set_up_world(players, grassTilemapDict, layer1TilemapDict, tileset):
 
 remote func receive_players(players):
 	for p_id in players:
-		var player = Player.instance()
-		player.name = str(p_id)
-		player.position = players[p_id]["position"]
-		player.get_node("Sprite").flip_h = players[p_id]["flip_h"]
-		var label = player.get_node("PlayerName")
-		label.text = players[p_id]["player_name"]
-		print("Player name: " + players[p_id]["player_name"])
-		gameWorld.get_node("Players").add_child(player)
-		if int(p_id) == int(local_player_id):
-			player.set_network_master(int(local_player_id), true)
+		var player_name = players[p_id]["player_name"]
+		var player_position = players[p_id]["position"]
+		var flip_h = players[p_id]["flip_h"]
+		gameWorld.spawn_new_player(p_id, player_position, player_name, flip_h)
 
 remote func remove_player(player_id):
-	gameWorld.get_node("Players").remove_child(gameWorld.get_node("Players").get_node(str(player_id)))
+	gameWorld.remove_player(player_id)
 
 func process_player_input(input_vector):
 	rpc_unreliable_id(1, "process_player_input", local_player_id, input_vector)
