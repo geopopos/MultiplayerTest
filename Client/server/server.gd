@@ -104,6 +104,9 @@ remote func receive_players(players):
 		gameWorld.spawn_new_player(p_id, player_position, player_name, flip_h)
 
 remote func remove_player(player_id):
+	# created so that the interpolation function in the world physics process won't respawn a player that just disconnected
+	# this happens because the player may still have position data in future states, but we don't want to respawn them if they've disconnected
+	yield(get_tree().create_timer(0.2), "timeout")
 	gameWorld.remove_player(player_id)
 
 # Player Movement
