@@ -5,6 +5,8 @@ onready var PlayerTemplate = preload("res://player/playertemplate.tscn")
 onready var players = $Players
 
 var last_world_state = 0
+var world_state_buffer = []
+const interpolation_offset = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -21,7 +23,6 @@ func spawn_new_player(player_id, player_position, player_name, flip_h):
 		sprite.flip_h = flip_h
 		label.text = player_name
 		if int(player_id) == get_tree().get_network_unique_id():
-			print("true")
 			player.set_network_master(int(get_tree().get_network_unique_id()), true)
 			player.get_node("Camera2D").current = true
 		else:
@@ -32,25 +33,51 @@ func spawn_new_player(player_id, player_position, player_name, flip_h):
 			label.text = player_name
 		get_node("Players").add_child(player)
 		if player.is_network_master():
-			print("is network master")
 			player.get_node("PlayerName").self_modulate = Color(0, 1, 0)
 		
 func remove_player(player_id):
 	get_node("Players").remove_child(get_node("Players").get_node(str(player_id)))
 
 func update_world_state(world_state):
-	# Buffer
-	# Interpolation
-	# Extrapolation
-	# Rubber Banding
-	if world_state["T"] > last_world_state: # again we cannot be guaranteed the order in which packets come in
+	if world_state["T"] > last_world_state:
 		last_world_state = world_state["T"]
-		world_state.erase("T")
-		world_state.erase(int(get_tree().get_network_unique_id()))
-		for player in world_state.keys():
+		world_state_buffer.append(world_state)
+	
+	
+func _physics_process(delta):
+	var render_time = OS.get_system_time_msecs() - interpolation_offset
+	if world_state_buffer.size() > 1:
+		while world_state_buffer.size() > 2 and render_time > world_state_buffer[1].T:
+			world_state_buffer.remove(0)
+		var interpolation_factor = float(render_time - world_state_buffer[0].T) / float(world_state_buffer[1].T - world_state_buffer[0].T)
+		for player in world_state_buffer[1].keys():
+			if str(player) == "T":
+				continue
+			if player == get_tree().get_network_unique_id():
+				continue
+			if not world_state_buffer[0].has(player):
+				continue
 			if players.has_node(str(player)):
-				players.get_node(str(player)).move_player(world_state[player]["P"])
+				var new_position = lerp(world_state_buffer[0][player]["P"], world_state_buffer[1][player]["P"], interpolation_factor)
+				players.get_node(str(player)).move_player(new_position)	
 			else:
-				spawn_new_player(player, world_state[player]["P"], Server.players[int(player)]["player_name"], false)
+				spawn_new_player(player, world_state_buffer[1][player]["P"], Server.players[int(player)]["player_name"], false)
+
+
+#func update_world_state_OLD(world_state):
+#	# Buffer
+#	# Interpolation
+#	# Extrapolation
+#	# Rubber Banding
+#	if world_state["T"] > last_world_state: # again we cannot be guaranteed the order in which packets come in
+#		last_world_state = world_state["T"]
+#		world_state.erase("T")
+#		world_state.erase(int(get_tree().get_network_unique_id()))
+#		for player in world_state.keys():
+#			if players.has_node(str(player)):
+#				var new_position = lerp(world_state_buffer[0][player]["P"], world_state[1][player]["P"], interpolation_factor)
+#				players.get_node(str(player)).move_player(new_position)
+#			else:
+#				spawn_new_player(player, world_state[player]["P"], Server.players[int(player)]["player_name"], false)
 		
 		

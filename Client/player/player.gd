@@ -23,7 +23,6 @@ func set_state(value):
 	state = value
 
 func _physics_process(_delta):
-	print("player")
 	if is_network_master():
 		print("true")
 		input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")

@@ -1,4 +1,4 @@
-[] attempt to create separate player and playertemplate nodes to avoid issue with spawning 2 players
+[x] attempt to create separate player and playertemplate nodes to avoid issue with spawning 2 players
 
 
 
