@@ -17,35 +17,41 @@ enum {
 }
 
 var state = MOVE setget set_state
+var player_state
 
 func set_state(value):
 	state = value
 
-func _process(_delta):
+func _physics_process(_delta):
+	print("player")
 	if is_network_master():
+		print("true")
 		input_direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	match state:
 		MOVE:
 			move_state()
 		ATTACK:
 			attack_state()
-
+	DefinePlayerState()
 	
+func DefinePlayerState():
+	player_state = {"T": OS.get_system_time_msecs(), "P": position}
+	Server.send_player_state(player_state)
 	
 func move_state():
 	if is_moving() and is_network_master():
 		move_on = true
 		animationPlayer.play("Walking")
 		sprite.flip_h = input_direction.x < 0
-		Server.process_player_input(input_direction)
+#		Server.process_player_input(input_direction)
 		velocity = move_and_slide(input_direction * MAXSPEED)
 	elif not is_moving() and move_on:
 		animationPlayer.play("Idle")
-		Server.set_player_idle()
+#		Server.set_player_idle()
 		move_on = false
 	
 	if Input.is_action_just_pressed("attack") and is_network_master():
-		Server.send_player_attacked()
+#		Server.send_player_attacked()
 		set_state(ATTACK)
 
 func is_moving():

@@ -7,6 +7,7 @@ var max_players = 100
 var expected_tokens = []
 
 var players = {}
+var player_state_collection = {}
 
 onready var player_verification_process = get_node("PlayerVerification")
 onready var GameWorld = preload("res://world/world.tscn")
@@ -74,24 +75,40 @@ func _player_disconnected(player_id):
 	if  world_players.has_node(str(player_id)):
 		world_players.get_node(str(player_id)).queue_free()
 		players.erase(player_id)
+		player_state_collection.erase(player_id)
 	get_node(str(player_id)).queue_free()
 	rset("players", players)
 	rpc("remove_player", player_id)
 	
-remote func send_player_info(id, player_data):
+remote func send_player_info(player_data):
+	var id = get_tree().get_rpc_sender_id()
 	var playerSpawn = gameWorld.get_node("PlayerSpawn")
 	var player = Player.instance()
 	var label = player.get_node("PlayerName")
 	player_data = playerSpawning.set_up_player(id, label, player, gameWorld, playerSpawn, player_data)
 	players[id] = player_data
+	player_state_collection[id] = {"T": OS.get_system_time_msecs(), "P": playerSpawn.position}
 	rset("players", players)
 	rpc_id(id, "set_up_world", players, grassTilemapDict, layer1TilemapDict, tileset)
 	print("Player Name: " + player_data["player_name"])
 	rpc("receive_new_player", id, player.position, player_data["player_name"])
 
-remote func fetch_players(id):
+remote func fetch_players():
+	var id = get_tree().get_rpc_sender_id()
 	rpc_id(id, "receive_players", players)
 	
+
+
+remote func receive_player_state(player_state):
+	var player_id = get_tree().get_rpc_sender_id()
+	if player_state_collection.has(player_id):
+		if player_state_collection[player_id]["T"] < player_state["T"]: # we cannot be guaranteed the latest incoming packet is in fact the newest, so we want to check the timestamp of the state before pushing it to the players current player_state
+			player_state_collection[player_id] = player_state
+		else:
+			player_state_collection[player_id] = player_state
+
+func send_world_state(world_state):
+	rpc_unreliable("receive_world_state", world_state)
 
 remote func process_player_input(id, input_vector):
 	var player = gamePlayers.get_node(str(id))
