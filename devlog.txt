@@ -3,9 +3,11 @@
 
 
 
+[] add mesage responses on response when logging ing
 
 
-
+[] add menu that allows player to gracefully disconnect
+[] start storing and loading player position data in persistent storage
 
 
 

@@ -64,7 +64,7 @@ func _physics_process(delta):
 				else:
 					spawn_new_player(player, world_state_buffer[2][player]["P"], Server.players[int(player)]["player_name"], false)
 		elif render_time > world_state_buffer[1].T:
-			var extrapolation_factor = float(render_time - world_state_buffer[0].T) / float(world_state_buffer[1].T - world_state_buffer[1].T) - 1.00
+			var extrapolation_factor = float(render_time - world_state_buffer[0].T) / float(world_state_buffer[1].T - world_state_buffer[0].T) - 1.00
 			for player in world_state_buffer[1].keys():
 				if str(player) == "T":
 					continue
