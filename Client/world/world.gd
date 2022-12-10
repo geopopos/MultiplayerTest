@@ -60,7 +60,11 @@ func _physics_process(delta):
 					continue
 				if players.has_node(str(player)):
 					var new_position = lerp(world_state_buffer[1][player]["P"], world_state_buffer[2][player]["P"], interpolation_factor)
-					players.get_node(str(player)).move_player(new_position)	
+					var animation_state = "Idle"
+					if world_state_buffer[2][player].has("A"):
+						 animation_state = world_state_buffer[2][player]["A"]
+					var flip_h = world_state_buffer[2][player]["FH"]
+					players.get_node(str(player)).move_player(new_position, animation_state, flip_h)	
 				else:
 					spawn_new_player(player, world_state_buffer[2][player]["P"], Server.players[int(player)]["player_name"], false)
 		elif render_time > world_state_buffer[1].T:
@@ -75,7 +79,7 @@ func _physics_process(delta):
 				if players.has_node(str(player)):
 					var position_delta = (world_state_buffer[1][player]["P"] - world_state_buffer[0][player]["P"]) * extrapolation_factor
 					var new_position = world_state_buffer[1][player]["P"] + (position_delta * extrapolation_factor)
-					players.get_node(str(player)).move_player(new_position)	
+					players.get_node(str(player)).move_player(new_position, "Idle", false)	
 #func update_world_state_OLD(world_state):
 #	# Buffer
 #	# Interpolation

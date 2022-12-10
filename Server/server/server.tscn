@@ -24,5 +24,7 @@ script = ExtResource( 3 )
 wait_time = 10.0
 autostart = true
 
+[node name="World" type="Node" parent="."]
+
 [connection signal="timeout" from="PlayerVerification/VerificationExpiration" to="PlayerVerification" method="_on_VerificationExpiration_timeout"]
 [connection signal="timeout" from="TokenExpiration" to="." method="_on_TokenExpiration_timeout"]
