@@ -53,7 +53,7 @@ func move_state():
 		move_on = false
 	
 	if Input.is_action_just_pressed("attack") and is_network_master():
-#		Server.send_player_attacked()
+		Server.send_player_attacked()
 		set_state(ATTACK)
 
 func is_moving():
@@ -77,4 +77,7 @@ func take_damage():
 	
 func on_hurt_animation_finished():
 	set_state(MOVE)
+	
+func move_player(new_position, animation, flip_h):
+	pass
 	

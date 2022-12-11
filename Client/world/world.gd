@@ -63,7 +63,9 @@ func _physics_process(delta):
 					var animation_state = "Idle"
 					if world_state_buffer[2][player].has("A"):
 						 animation_state = world_state_buffer[2][player]["A"]
-					var flip_h = world_state_buffer[2][player]["FH"]
+					var flip_h = false
+					if world_state_buffer[2][player].has("FH"):
+						flip_h = world_state_buffer[2][player]["FH"]
 					players.get_node(str(player)).move_player(new_position, animation_state, flip_h)	
 				else:
 					spawn_new_player(player, world_state_buffer[2][player]["P"], Server.players[int(player)]["player_name"], false)
