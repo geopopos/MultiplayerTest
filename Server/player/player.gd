@@ -23,17 +23,21 @@ var state = MOVE setget set_state
 func _ready():
 	Server = get_tree().get_root().get_node("Server")
 
-func player_movement(input_vector):
-	if state == MOVE:
-		velocity = move_and_slide(input_vector * MAXSPEED)
-		var flipped = input_vector.x < 0
-		sprite.flip_h = flipped
-		if flipped:
-			hitboxCollision.position = Vector2(-12.5,-2)
-		else:
-			hitboxCollision.position = Vector2(12.5,-2)
-		animationPlayer.play("Walking")
-		Server.update_player_position(name, position, sprite.flip_h, "Walking")
+#func player_movement(input_vector):
+#	if state == MOVE:
+#		velocity = move_and_slide(input_vector * MAXSPEED)
+#		var flipped = input_vector.x < 0
+#
+#		animationPlayer.play("Walking")
+##		Server.update_player_position(name, position, sprite.flip_h, "Walking")
+	
+func update_player(player_position, flip_h):
+	sprite.flip_h = flip_h
+	if flip_h:
+		hitboxCollision.position = Vector2(-12.5,-2)
+	else:
+		hitboxCollision.position = Vector2(12.5,-2)
+	position = player_position
 	
 func set_idle():
 	animationPlayer.play("Idle")

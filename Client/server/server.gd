@@ -80,8 +80,6 @@ remote func return_latency(client_time):
 				total_latency += latency_array[i]
 		delta_latency = (total_latency / latency_array.size()) - latency
 		latency = total_latency / latency_array.size()
-		print("New Latency ", latency)
-		print("delta Latency ", delta_latency)
 		latency_array.clear()
 	
 remote func return_server_time(server_time, client_time):
@@ -99,6 +97,7 @@ func register_player():
 	rpc_id(1, "fetch_players")
 	
 remote func receive_new_player(player_id, player_position, player_name):
+	print("received new player")
 	gameWorld.spawn_new_player(player_id, player_position, player_name, false)
 
 remote func set_up_world(players, grassTilemapDict, layer1TilemapDict, tileset):
