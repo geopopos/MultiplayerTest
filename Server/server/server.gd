@@ -55,6 +55,9 @@ func _ready():
 	file.open("res://world/worldtileset.tres", File.READ)
 	tileset = file.get_as_text()
 	file.close()
+
+func check_for_player(player_id):
+	return player_state_collection.has(player_id)
 	
 	
 func start_server():

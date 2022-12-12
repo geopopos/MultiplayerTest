@@ -1,3 +1,13 @@
+12122022
+[] set up enemies
+   [x] set up player following
+   [] set up hurtbox hitbox system
+   [] set up enemy health
+   [] share enemy update with clients
+
+
+there is a slight bug in the enemy wander controller. If a player disconnects while being chased by the enemy, the body exited signal is never triggered. we will need to run a check to see if the character is still connected
+_____________
 12112022
 there's something going on where the hurt animation is continuously playing. I believe it has something to do with the way we are calling hurt server side
 
@@ -10,12 +20,14 @@ Now when the player hurt animation starts it doesn't stop. I have a feeling, it 
 [x] add mesage responses on response when logging in
 ------------
 
+[] set up enemy spawning, and shared enemy combat
+
+[] fix username labels
 
 [] set up character creator
    [] client side interface
    [] storage in database
    [] loading to other connected clients
-[] set up enemy spawning, and shared enemy combat
 
 [] set up player data storage
 https://www.youtube.com/watch?v=y_3f_QXmvU8&list=PLZ-54sd-DMAKU8Neo5KsVmq8KtoDkfi4s&index=5
