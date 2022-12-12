@@ -1,3 +1,12 @@
+12112022
+there's something going on where the hurt animation is continuously playing. I believe it has something to do with the way we are calling hurt server side
+
+got the player to reappear I accidentally turned off the sprites visibility.
+
+Now when the player hurt animation starts it doesn't stop. I have a feeling, it is because the old player states are overwriting when I change the state back to idle
+ - i updated the player to set it's anaimtion state 
+
+
 [x] attempt to create separate player and playertemplate nodes to avoid issue with spawning 2 players
 
 

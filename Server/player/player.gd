@@ -11,6 +11,8 @@ var knockback_multiplier = 15
 onready var sprite = $Sprite
 onready var animationPlayer = $AnimationPlayer
 onready var hitboxCollision = $HitBox/CollisionShape2D
+onready var hurtboxCollision = $HurtBox/CollisionShape2D
+onready var hurtBoxDisabledTimer = $HurtBoxDisabledTimer
 
 enum {
 	MOVE,
@@ -59,6 +61,8 @@ func _on_HurtBox_area_entered(area):
 	var attacker = area.get_parent()
 	received_knockback(attacker, damage)
 	Server.send_player_damage(name, health, global_position)
+	hurtboxCollision.set_deferred("disabled", true)
+	hurtBoxDisabledTimer.start()
 
 func received_knockback(attacker: Node, damage: int):
 	if receives_knockback:
@@ -67,3 +71,9 @@ func received_knockback(attacker: Node, damage: int):
 		var knockback = knockback_direction * knockback_strength
 		
 		move_and_slide(knockback * 100)
+
+
+func _on_HurtBoxDisabledTimer_timeout():
+	print("hurt done")
+	Server.set_player_animation(int(name), "Idle")
+	hurtboxCollision.set_deferred("disabled", false)

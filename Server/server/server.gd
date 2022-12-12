@@ -133,12 +133,22 @@ remote func player_triggered_attack(id):
 	var player = gamePlayers.get_node(str(id))
 	player.start_attack()
 	rpc("receive_player_attack", id)
-	
+
+func set_player_animation(id, animation):
+	print("Set player animation to idle")
+	print(id)
+	print(player_state_collection)
+	player_state_collection[id]["A"] = "Idle"
+	print(player_state_collection)
+
 func send_player_damage(name, health, global_position):
+	print("set player hurt")
 	# add updating player health here as well
 	players[int(name)]["health"] = health
 	rset("players", players)
-	rpc("set_player_knockback", name, global_position)
+	player_state_collection[int(name)]["P"] = global_position
+	player_state_collection[int(name)]["A"] = "Hurt"
+	rpc_id(int(name), "set_player_knockback", name, global_position)
 
 
 func _on_TokenExpiration_timeout():
@@ -147,7 +157,7 @@ func _on_TokenExpiration_timeout():
 	if expected_tokens.empty():
 		pass
 	else:
-		for i in range(expected_tokens.size, -1, -1, -1):
+		for i in range(expected_tokens.size(), -1, -1, -1):
 			token_time = int(expected_tokens[i].right(64))
 			if current_time - token_time >= 30:
 				expected_tokens.remove(i)

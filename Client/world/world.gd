@@ -62,7 +62,7 @@ func _physics_process(delta):
 					var new_position = lerp(world_state_buffer[1][player]["P"], world_state_buffer[2][player]["P"], interpolation_factor)
 					var animation_state = "Idle"
 					if world_state_buffer[2][player].has("A"):
-						 animation_state = world_state_buffer[2][player]["A"]
+						animation_state = world_state_buffer[2][player]["A"]
 					var flip_h = false
 					if world_state_buffer[2][player].has("FH"):
 						flip_h = world_state_buffer[2][player]["FH"]

@@ -35,6 +35,7 @@ func _physics_process(_delta):
 	DefinePlayerState()
 	
 func DefinePlayerState():
+	print(animation_state)
 	player_state = {"T": Server.client_clock, "P": position, "A": animation_state, "FH": sprite.flip_h}
 	Server.send_player_state(player_state)
 	
@@ -76,6 +77,8 @@ func take_damage():
 	animation_state = "Hurt"
 	
 func on_hurt_animation_finished():
+	animationPlayer.play("Idle")
+	animation_state = "Idle"
 	set_state(MOVE)
 	
 func move_player(new_position, animation, flip_h):

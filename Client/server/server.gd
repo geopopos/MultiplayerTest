@@ -75,7 +75,7 @@ remote func return_latency(client_time):
 		var mid_point = latency_array[4]
 		for i in range(latency_array.size() -1,-1,-1):
 			if latency_array[i] > (2 * mid_point) and latency_array[i] > 20:
-				latency_array.remove()
+				latency_array.remove(i)
 			else:
 				total_latency += latency_array[i]
 		delta_latency = (total_latency / latency_array.size()) - latency
