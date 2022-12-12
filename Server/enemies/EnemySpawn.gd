@@ -27,6 +27,7 @@ func create_new_enemy():
 	var enemy = Enemy.instance()
 	enemy.spawner = self
 	enemy.global_position = global_position
+	enemy.name = str(enemy.get_instance_id())
 	get_parent().get_parent().add_enemy(enemy)
 
 func set_state(value):

@@ -20,6 +20,8 @@ func _physics_process(delta):
 				player_fh = player_state["FH"]
 			var player = Players.get_node(str(player_id))
 			player.update_player(player_pos, player_fh)
+	for enemy in enemy_list:
+		enemy_list[enemy]["EnemyLocation"] = enemies.get_node(str(enemy)).position
 		
 func add_enemy(enemy):
 	enemies.add_child(enemy)
