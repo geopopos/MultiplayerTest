@@ -48,7 +48,14 @@ func _physics_process(delta):
 			if global_position.distance_to(wanderController.target_position) <= WANDER_TARGET_RANGE:
 				update_wander()
 		CHASE:
-			var player = playerDetectionZone.player
+			var players = playerDetectionZone.players
+			var player = null
+			var closest = 9000000
+			for p_name in players: 
+				var distance2player = position.distance_to(players[p_name].position)
+				if distance2player < closest:
+					player = players[p_name]
+					closest = distance2player
 			if player != null and Server.check_for_player(int(player.name)):
 				accelerate_towards_point(player.global_position, delta)
 			else:

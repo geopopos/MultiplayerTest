@@ -8,6 +8,10 @@
    [] set up enemy health
 
 
+[x] update playerdetection on severside to hold a list of players in the bats playerdetection zone. From there calculate which player is closest and go after them
+
+[] later add an agro calculator as well. bat will attack whoever caused the most agro
+
 * fixed the below issue by having the player chase state check that the player still is in the player_collection_state
 there is a slight bug in the enemy wander controller. If a player disconnects while being chased by the enemy, the body exited signal is never triggered. we will need to run a check to see if the character is still connected
 _____________

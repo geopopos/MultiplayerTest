@@ -95,7 +95,9 @@ func _physics_process(delta):
 			for player in world_state_buffer[1].keys():
 				if str(player) == "T":
 					continue
-				if player == str(get_tree().get_network_unique_id()):
+				if str(player) == "Enemies":
+					continue
+				if player == get_tree().get_network_unique_id():
 					continue
 				if not world_state_buffer[0].has(player):
 					continue

@@ -1,14 +1,13 @@
 extends Area2D
 
-var player = null
+var players = {}
 
 func can_see_player():
-	return player != null
+	return not players.empty()
 
 func _on_PlayerDetectionZone_body_entered(body):
-	if not can_see_player():
-		player = body
+		players[body.name] = body
 
 func _on_PlayerDetectionZone_body_exited(body):
-	if body == player:
-		player = null
+	if players.has(body.name):
+		players.erase(body.name)
