@@ -50,10 +50,8 @@ func _physics_process(delta):
 		CHASE:
 			var player = playerDetectionZone.player
 			if player != null and Server.check_for_player(int(player.name)):
-				print("DO CHASE")
 				accelerate_towards_point(player.global_position, delta)
 			else:
-				print("DON'T CHASE")
 				state = IDLE
 		FREEZE:
 			animationPlayer.stop()
