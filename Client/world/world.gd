@@ -105,3 +105,10 @@ func _physics_process(delta):
 					var position_delta = (world_state_buffer[1][player]["P"] - world_state_buffer[0][player]["P"]) * extrapolation_factor
 					var new_position = world_state_buffer[1][player]["P"] + (position_delta * extrapolation_factor)
 					players.get_node(str(player)).move_player(new_position, "Idle", false)
+			for enemy in world_state_buffer[1]["Enemies"].keys():
+				if not world_state_buffer[0].has(enemy):
+					continue
+				if enemies.has_node(str(enemy)):
+					var position_delta = (world_state_buffer[1][enemy]["EnemyLocation"] - world_state_buffer[0][enemy]["EnemyLocatin"]) * extrapolation_factor
+					var new_position = world_state_buffer[1][enemy]["EnemyLocation"] + (position_delta * extrapolation_factor)
+					players.get_node(str(enemy)).move_enemy(new_position, "Idle", false)

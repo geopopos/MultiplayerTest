@@ -3,7 +3,8 @@
    [x] set up player following
    [x] set up player spawn
    [x] share enemy update with clients
-      [] running into an issue where the enemy location is not being updated in the enemy list serversid
+      [x] running into an issue where the enemy location is not being updated in the enemy list serversid
+   [x] set up extrapolation for enemy updates client-side
    [] set up hurtbox hitbox system
    [] set up enemy health
 
