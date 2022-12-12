@@ -27,6 +27,7 @@ var tileset
 func _ready():
 	start_server()
 	gameWorld = GameWorld.instance()
+	gameWorld.name = "WorldMap"
 	add_child(gameWorld)
 	gamePlayers = gameWorld.get_node("Players")
 	grassTilemap = gameWorld.get_node("Grass")

@@ -2,6 +2,11 @@ extends YSort
 
 onready var server = get_parent()
 onready var Players = $Players
+onready var enemies = $Enemies
+
+var enemy_list = {}
+
+var rng = RandomNumberGenerator.new()
 
 func _physics_process(delta):
 	var world_state = server.player_state_collection.duplicate(true)
@@ -16,3 +21,7 @@ func _physics_process(delta):
 			var player = Players.get_node(str(player_id))
 			player.update_player(player_pos, player_fh)
 		
+func add_enemy(enemy):
+	enemies.add_child(enemy)
+	enemy_list[enemy.get_instance_id()] = {"EnemyType": "Bat", "EnemyLocation": enemy.position, "EnemyHealth": 2, "EnemyMaxHealth": 2}
+	

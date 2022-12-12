@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://world/worldtileset.tres" type="TileSet" id=1]
 [ext_resource path="res://world/world.gd" type="Script" id=2]
 [ext_resource path="res://enemies/Bat.tscn" type="PackedScene" id=3]
+[ext_resource path="res://enemies/EnemySpawn.tscn" type="PackedScene" id=4]
 
 [node name="World" type="YSort"]
 script = ExtResource( 2 )
@@ -26,16 +27,22 @@ __meta__ = {
 
 [node name="Enemies" type="YSort" parent="."]
 
-[node name="Bat" parent="Enemies" instance=ExtResource( 3 )]
-position = Vector2( 307, 107 )
-
 [node name="PlayerSpawn" type="Position2D" parent="."]
 position = Vector2( 149, 92 )
 
 [node name="EnemySpawnPoints" type="Node2D" parent="."]
 
-[node name="EnemySpawner1" type="Position2D" parent="EnemySpawnPoints"]
-position = Vector2( 346, 105 )
+[node name="EnemySpawn" parent="EnemySpawnPoints" instance=ExtResource( 4 )]
+position = Vector2( 618, 75 )
+Enemy = ExtResource( 3 )
+
+[node name="EnemySpawn2" parent="EnemySpawnPoints" instance=ExtResource( 4 )]
+position = Vector2( 430, 80 )
+Enemy = ExtResource( 3 )
+
+[node name="EnemySpawn3" parent="EnemySpawnPoints" instance=ExtResource( 4 )]
+position = Vector2( 555, 203 )
+Enemy = ExtResource( 3 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 299, 205 )
