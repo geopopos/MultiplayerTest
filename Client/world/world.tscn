@@ -271,4 +271,6 @@ __meta__ = {
 "_editor_description_": ""
 }
 
-[node name="Players" type="Node2D" parent="."]
+[node name="Players" type="YSort" parent="."]
+
+[node name="Enemies" type="YSort" parent="."]
