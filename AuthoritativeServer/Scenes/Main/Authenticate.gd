@@ -45,7 +45,17 @@ remote func AuthenticatePlayer(username, password, player_id):
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
+	print(json.result)
+	var error = ""
+	var token = ""
+	var message = json.result["message"]
+	if json.result.has("token"):
+		token = json.result["token"]
+
+	var gateway_id = int(json.result["gateway_id"])
+	var player_id = int(json.result["player_id"])
 	if json.result.has("error"):
+		error = json.result["error"]
 		if json.result["error"] == "user_not_exists":
 			print("User is not recognized")
 			result = false
@@ -56,9 +66,6 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 			print("user has not yet confirmed their email")
 			result = false
 	else:
-		var token = json.result["token"]
-		var gateway_id = int(json.result["gateway_id"])
-		var player_id = int(json.result["player_id"])
 		result = true
 		randomize()
 		var random_number = randi()
@@ -71,5 +78,5 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		print(token)
 		var gameserver = "GameServer1"
 		GameServers.DistributeLoginToken(token, gameserver)
-		print("authentication result send to gateway server")
-		rpc_id(gateway_id, "AuthenticationResults", result, player_id, token)
+	print("authentication result send to gateway server")
+	rpc_id(gateway_id, "AuthenticationResults", result, player_id, token, error, message)

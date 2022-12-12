@@ -7,14 +7,32 @@ Now when the player hurt animation starts it doesn't stop. I have a feeling, it 
  - i updated the player to set it's anaimtion state 
 
 
-[x] attempt to create separate player and playertemplate nodes to avoid issue with spawning 2 players
+[x] add mesage responses on response when logging in
+------------
+
+
+[] set up character creator
+   [] client side interface
+   [] storage in database
+   [] loading to other connected clients
+[] set up enemy spawning, and shared enemy combat
+
+[] set up player data storage
+https://www.youtube.com/watch?v=y_3f_QXmvU8&list=PLZ-54sd-DMAKU8Neo5KsVmq8KtoDkfi4s&index=5
+
+[] set up asset download function [only changed on update otherwise data should be stored locally
+   - this should be moved to a launcher server (avoid drag of massive payloads on world server)
+     - when the client launches it should launch to an update scene.
+     - this scene should check it's string hash of the assets it holds and see if it matches the server side
+     - if so, go to login scene
+     - if not, download assets
+   [] audio assets
+   [] tilemaps
+   [] visual assets
 
 
 
-
-[] add mesage responses on response when logging ing
-
-
+   
 [] add menu that allows player to gracefully disconnect
 [] start storing and loading player position data in persistent storage
 
@@ -22,6 +40,7 @@ Now when the player hurt animation starts it doesn't stop. I have a feeling, it 
 
 
 
+[x] attempt to create separate player and playertemplate nodes to avoid issue with spawning 2 players
 [x] add function so when a player connects it is sent all players in the world
 [x] set up removal of player when it disconnects
 [x] set up player movement via server-side
@@ -51,15 +70,9 @@ Now when the player hurt animation starts it doesn't stop. I have a feeling, it 
 [x] update all calls to add child that add a node with the name ID to be add_child(NODE, true) <- that way godot will 100% use the name we set.
 [x] figure out why player labels disappeared
 
-[] update client to have world.gd process world state
-[] update player_movement to be client side, valdiation and syncing server side
+[x] update client to have world.gd process world state
+[x] update player_movement to be client side, valdiation and syncing server side
 
-[] set up player data storage
-https://www.youtube.com/watch?v=y_3f_QXmvU8&list=PLZ-54sd-DMAKU8Neo5KsVmq8KtoDkfi4s&index=5
-
-[] set up asset download function [only changed on update otherwise data should be stored locally
-   [] tilemaps
-   [] visual assets
 
 
 BEFORE RELEASE

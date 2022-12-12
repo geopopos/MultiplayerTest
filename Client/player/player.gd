@@ -35,7 +35,6 @@ func _physics_process(_delta):
 	DefinePlayerState()
 	
 func DefinePlayerState():
-	print(animation_state)
 	player_state = {"T": Server.client_clock, "P": position, "A": animation_state, "FH": sprite.flip_h}
 	Server.send_player_state(player_state)
 	

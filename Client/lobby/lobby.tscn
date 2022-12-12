@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://lobby/lobby.gd" type="Script" id=1]
+[ext_resource path="res://lobby/AuthenticationLabel.gd" type="Script" id=2]
 
 [node name="Lobby" type="Control"]
 anchor_right = 1.0
@@ -103,5 +104,20 @@ margin_right = 200.0
 margin_bottom = 180.0
 text = "Back"
 
+[node name="AuthenticationLabel" type="Label" parent="."]
+margin_left = 3.0
+margin_top = 44.0
+margin_right = 320.0
+margin_bottom = 58.0
+custom_colors/font_color = Color( 1, 0.00392157, 0.00392157, 1 )
+align = 1
+autowrap = true
+script = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="AuthenticationLabel"]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="pressed" from="CenterContainer/Login/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="CenterContainer/Login/CreateAccount" to="." method="_on_CreateAccount_pressed"]
+[connection signal="timeout" from="AuthenticationLabel/Timer" to="AuthenticationLabel" method="_on_Timer_timeout"]

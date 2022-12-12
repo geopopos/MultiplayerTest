@@ -9,6 +9,8 @@ var cert = load("res://resources/certificate/X509_Certificate.crt")
 var username
 var password
 
+onready var authenticationLabel = get_node("../Lobby/AuthenticationLabel")
+
 
 func _ready():
 	pass
@@ -54,13 +56,14 @@ func RequestLogin():
 	username = ""
 	password = ""
 	
-remote func ReturnLoginRequest(result, token):
+remote func ReturnLoginRequest(result, token, error, message):
 	print("results received")
 	if result == true:
+		print("Authenticated Successfully")
 		Server.token = token
 		Server._connect_to_server()
 	else:
-		print("Please provide valid username and password")
+		authenticationLabel.set_error_message(message)
 		get_node("../Lobby/CenterContainer/Login/Button").disabled = false
 	network.disconnect("connection_failed", self, "_on_connection_failed")
 	network.disconnect("connection_succeeded", self, "_on_connection_succeeded")
