@@ -69,20 +69,20 @@ func _physics_process(delta):
 			for player in world_state_buffer[2]["Players"].keys():
 				if player == get_tree().get_network_unique_id():
 					continue
-				if not world_state_buffer[1].has(player):
+				if not world_state_buffer[1]["Players"].has(player):
 					continue
 				if players.has_node(str(player)):
 					# TO-DO: add health here like we have in the enemy code below to set up pvp health display
-					var new_position = lerp(world_state_buffer[1][player]["P"], world_state_buffer[2][player]["P"], interpolation_factor)
+					var new_position = lerp(world_state_buffer[1]["Players"][player]["P"], world_state_buffer[2]["Players"][player]["P"], interpolation_factor)
 					var animation_state = "Idle"
-					if world_state_buffer[2][player].has("A"):
-						animation_state = world_state_buffer[2][player]["A"]
+					if world_state_buffer[2]["Players"][player].has("A"):
+						animation_state = world_state_buffer[2]["Players"][player]["A"]
 					var flip_h = false
-					if world_state_buffer[2][player].has("FH"):
-						flip_h = world_state_buffer[2][player]["FH"]
+					if world_state_buffer[2]["Players"][player].has("FH"):
+						flip_h = world_state_buffer[2]["Players"][player]["FH"]
 					players.get_node(str(player)).move_player(new_position, animation_state, flip_h)	
 				else:
-					spawn_new_player(player, world_state_buffer[2][player]["P"], Server.players[int(player)]["player_name"], false)
+					spawn_new_player(player, world_state_buffer[2]["Players"][player]["P"], Server.players[int(player)]["player_name"], false)
 			for enemy in world_state_buffer[2]["Enemies"].keys():
 				if not world_state_buffer[1]["Enemies"].has(enemy):
 					continue
