@@ -15,11 +15,12 @@ func _ready():
 	pass # Replace with function body.
 	
 func spawn_new_enemy(enemy_id, enemy_data):
-	var new_enemy = enemy_spawn.instance()
-	new_enemy.position = enemy_data["EnemyLocation"]
-	# TO-DO: add stats here like enemy health
-	new_enemy.name = str(enemy_id)
-	enemies.add_child(new_enemy, true)
+	if not enemies.has_node(str(enemy_id)):
+		var new_enemy = enemy_spawn.instance()
+		new_enemy.position = enemy_data["EnemyLocation"]
+		# TO-DO: add stats here like enemy health
+		new_enemy.name = str(enemy_id)
+		enemies.add_child(new_enemy, true)
 
 func spawn_new_player(player_id, player_position, player_name, flip_h):
 	if not players.has_node(str(player_id)):
@@ -46,6 +47,12 @@ func spawn_new_player(player_id, player_position, player_name, flip_h):
 		
 func remove_player(player_id):
 	get_node("Players").remove_child(get_node("Players").get_node(str(player_id)))
+
+func remove_enemy(enemy_name):
+	print("remove_enemy " + enemy_name)
+	var enemy = enemies.get_node(str(enemy_name))
+	print(enemy)
+	enemies.remove_child(enemy)
 
 func update_world_state(world_state):
 	if world_state["T"] > last_world_state:

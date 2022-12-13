@@ -154,7 +154,11 @@ func send_player_damage(name, health, global_position):
 	player_state_collection[int(name)]["A"] = "Hurt"
 	rpc_id(int(name), "set_player_knockback", name, global_position)
 
+func kill_enemy(enemy_name):
+	print("Kill enemy " + enemy_name)
+	rpc("kill_enemy", enemy_name)
 
+# Player Verification
 func _on_TokenExpiration_timeout():
 	var current_time = OS.get_unix_time()
 	var token_time

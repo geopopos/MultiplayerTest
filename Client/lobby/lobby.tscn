@@ -6,6 +6,8 @@
 [node name="Lobby" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
 rect_pivot_offset = Vector2( 348, 45 )
 script = ExtResource( 1 )
 

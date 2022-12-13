@@ -14,6 +14,7 @@ enum {
 	IDLE,
 	WANDER,
 	CHASE,
+	HURT,
 	FREEZE
 }
 
@@ -24,9 +25,12 @@ onready var playerDetectionZone = $PlayerDetectionZone
 onready var animationPlayer = $AnimationPlayer
 onready var sprite = $Sprite
 onready var wanderController = $WanderController
+onready var stats = $Stats
+onready var gameWorld : Node
 
 func _ready():
 	Server = get_tree().get_root().get_node("Server")
+	gameWorld = get_tree().get_root().get_node("Server/WorldMap")
 
 func _physics_process(delta):
 	knockback = knockback.move_toward(Vector2.ZERO, FRICTION * delta)
@@ -83,3 +87,17 @@ func update_wander():
 func pick_random_state(state_list):
 	state_list.shuffle()
 	return state_list.pop_front()
+
+
+func _on_HurtBox_area_entered(area):
+	stats.health -= area.damage
+	knockback.x = global_position.x - area.global_position.x
+	knockback.y = global_position.y - area.global_position.y
+	var m = sqrt(knockback.x*knockback.x + knockback.y*knockback.y)
+	knockback.x /= m
+	knockback.y /= m
+	knockback = knockback * 125
+
+func _on_Stats_no_health():
+	gameWorld.remove_enemy(str(name))
+	spawner.set_state(1)

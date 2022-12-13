@@ -21,9 +21,16 @@ func _physics_process(delta):
 			var player = Players.get_node(str(player_id))
 			player.update_player(player_pos, player_fh)
 	for enemy in enemy_list:
-		enemy_list[enemy]["EnemyLocation"] = enemies.get_node(str(enemy)).position
+		if enemies.has_node(str(enemy)):
+			enemy_list[enemy]["EnemyLocation"] = enemies.get_node(str(enemy)).position
 		
 func add_enemy(enemy):
 	enemies.add_child(enemy)
 	enemy_list[enemy.get_instance_id()] = {"EnemyType": "Bat", "EnemyLocation": enemy.position, "EnemyHealth": 2, "EnemyMaxHealth": 2}
 	
+func remove_enemy(enemy_name):
+	var enemy = enemies.get_node(enemy_name)
+	enemies.remove_child(enemy)
+	enemy_list.erase(int(enemy_name))
+	server.kill_enemy(enemy_name)
+	enemy.queue_free()

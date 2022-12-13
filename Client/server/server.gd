@@ -192,6 +192,12 @@ remote func receive_player_attack(id):
 	var player = gamePlayers.get_node(str(id))
 	player.set_state(1)
 	
+remote func kill_enemy(enemy_name):
+	#	var enemy = gameWorld.get_node("Enemies").get_node(str(enemy_name))
+	#  yield so that interpolation function does not respawn enemy
+	yield(get_tree().create_timer(0.2), "timeout")
+	gameWorld.remove_enemy(enemy_name)
+	
 
 ## player verification system
 remote func FetchToken():

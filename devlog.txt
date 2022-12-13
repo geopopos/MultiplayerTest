@@ -5,8 +5,11 @@
    [x] share enemy update with clients
       [x] running into an issue where the enemy location is not being updated in the enemy list serversid
    [x] set up extrapolation for enemy updates client-side
-   [] set up hurtbox hitbox system
+   [x] set up hurtbox hitbox system
+   [x] enemy removal on death
+      [x] ran into an issue with interpolation. need to wait .2 seconds before despawning enemy so that interpolation does not respawn
    [] set up enemy health
+   [] add better chase algorithm (a*?)
 
 
 [x] update playerdetection on severside to hold a list of players in the bats playerdetection zone. From there calculate which player is closest and go after them
