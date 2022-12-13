@@ -94,7 +94,8 @@ func _physics_process(delta):
 				if enemies.has_node(str(enemy)):
 					var new_position = lerp(world_state_buffer[1]["Enemies"][enemy]["EnemyLocation"], world_state_buffer[2]["Enemies"][enemy]["EnemyLocation"], interpolation_factor)
 					enemies.get_node(str(enemy)).move_enemy(new_position)
-					# enemies.get_node(str(enemy)).health(world_state_buffer[1]["Enemies"][enemy]["EnemyHealth"])
+					print("health " + str(world_state_buffer[1]["Enemies"][enemy]["EnemyHealth"]))
+					enemies.get_node(str(enemy)).health(world_state_buffer[1]["Enemies"][enemy]["EnemyHealth"], world_state_buffer[1]["Enemies"][enemy]["EnemyMaxHealth"])
 				else:
 					spawn_new_enemy(enemy, world_state_buffer[2]["Enemies"][enemy])
 		elif render_time > world_state_buffer[1].T:

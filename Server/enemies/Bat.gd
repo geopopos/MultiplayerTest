@@ -91,6 +91,7 @@ func pick_random_state(state_list):
 
 func _on_HurtBox_area_entered(area):
 	stats.health -= area.damage
+	print(stats.health)
 	knockback.x = global_position.x - area.global_position.x
 	knockback.y = global_position.y - area.global_position.y
 	var m = sqrt(knockback.x*knockback.x + knockback.y*knockback.y)

@@ -1,3 +1,13 @@
+12132022
+continuation of enemy set up from yesterday.
+for enemy
+   [x] set up enemy health client side visuals
+   [] add better chase algorithm
+
+[] create players sub-dictionary in world state for easier processing client side
+
+
+
 12122022
 [] set up enemies
    [x] set up player following
@@ -10,6 +20,7 @@
       [x] ran into an issue with interpolation. need to wait .2 seconds before despawning enemy so that interpolation does not respawn
    [] set up enemy health
    [] add better chase algorithm (a*?)
+
 
 
 [x] update playerdetection on severside to hold a list of players in the bats playerdetection zone. From there calculate which player is closest and go after them
@@ -31,7 +42,8 @@ Now when the player hurt animation starts it doesn't stop. I have a feeling, it 
 [x] add mesage responses on response when logging in
 ------------
 
-[] set up enemy spawning, and shared enemy combat
+[] set up chat
+[x] set up enemy spawning, and shared enemy combat
 
 [] fix username labels
 
