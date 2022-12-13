@@ -81,6 +81,8 @@ func _physics_process(delta):
 					if world_state_buffer[2]["Players"][player].has("FH"):
 						flip_h = world_state_buffer[2]["Players"][player]["FH"]
 					players.get_node(str(player)).move_player(new_position, animation_state, flip_h)	
+					print("Player Health " + str(world_state_buffer[1]["Players"][player]["health"]))
+					players.get_node(str(player)).health(world_state_buffer[1]["Players"][player]["health"], world_state_buffer[1]["Players"][player]["max_health"])
 				else:
 					spawn_new_player(player, world_state_buffer[2]["Players"][player]["P"], Server.players[int(player)]["player_name"], false)
 			for enemy in world_state_buffer[2]["Enemies"].keys():
@@ -89,7 +91,6 @@ func _physics_process(delta):
 				if enemies.has_node(str(enemy)):
 					var new_position = lerp(world_state_buffer[1]["Enemies"][enemy]["EnemyLocation"], world_state_buffer[2]["Enemies"][enemy]["EnemyLocation"], interpolation_factor)
 					enemies.get_node(str(enemy)).move_enemy(new_position)
-					print("health " + str(world_state_buffer[1]["Enemies"][enemy]["EnemyHealth"]))
 					enemies.get_node(str(enemy)).health(world_state_buffer[1]["Enemies"][enemy]["EnemyHealth"], world_state_buffer[1]["Enemies"][enemy]["EnemyMaxHealth"])
 				else:
 					spawn_new_enemy(enemy, world_state_buffer[2]["Enemies"][enemy])

@@ -91,7 +91,8 @@ remote func send_player_info(player_data):
 	var label = player.get_node("PlayerName")
 	player_data = playerSpawning.set_up_player(id, label, player, gameWorld, playerSpawn, player_data)
 	players[id] = player_data
-	player_state_collection[id] = {"T": OS.get_system_time_msecs(), "P": playerSpawn.position}
+	print(player.stats.health)
+	player_state_collection[id] = {"T": OS.get_system_time_msecs(), "P": playerSpawn.position, "health": player.stats.health, "max_health": player.stats.max_health}
 	rset("players", players)
 	rpc_id(id, "set_up_world", players, grassTilemapDict, layer1TilemapDict, tileset)
 	print("Player Name: " + player_data["player_name"])
@@ -108,9 +109,11 @@ remote func receive_player_state(player_state):
 	var player_id = get_tree().get_rpc_sender_id()
 	if player_state_collection.has(player_id):
 		if player_state_collection[player_id]["T"] < player_state["T"]: # we cannot be guaranteed the latest incoming packet is in fact the newest, so we want to check the timestamp of the state before pushing it to the players current player_state
-			player_state_collection[player_id] = player_state
+			for key in player_state.keys():
+				player_state_collection[player_id][key] = player_state[key]
 		else:
-			player_state_collection[player_id] = player_state
+			for key in player_state.keys():
+				player_state_collection[player_id][key] = player_state[key]
 
 func send_world_state(world_state):
 	rpc_unreliable("receive_world_state", world_state)

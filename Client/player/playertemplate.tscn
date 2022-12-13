@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/player_sprites/player.png" type="Texture" id=1]
 [ext_resource path="res://player/playertemplate.gd" type="Script" id=2]
+[ext_resource path="res://UI/HealthBar.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 3.0
@@ -132,3 +133,9 @@ margin_top = -33.0
 margin_right = 20.0
 margin_bottom = -19.0
 align = 1
+
+[node name="HealthBar" parent="." instance=ExtResource( 3 )]
+margin_left = -21.0
+margin_top = 4.0
+margin_right = -21.0
+margin_bottom = 4.0

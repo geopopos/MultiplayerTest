@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 onready var animationPlayer = $AnimationPlayer
 onready var sprite = $Sprite
+onready var healthBar = $HealthBar/ProgressBar
 
 var player_state
 
@@ -40,5 +41,9 @@ func _on_hurt_animation_finished():
 	visible = true
 	animationPlayer.play("Idle")
 	set_state(MOVE)
+	
+func health(health, max_health):
+	var healthPercent = health/float(max_health) * 100
+	healthBar.value = healthPercent
 	
 

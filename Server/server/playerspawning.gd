@@ -8,5 +8,5 @@ func set_up_player(id, label, player, gameWorld, playerSpawn, player_data):
 	player.position = playerSpawn.position
 	player_data["position"] = player.position
 	player_data["flip_h"] = false
-	player_data["health"] = player.health
+	player_data["health"] = player.stats.health
 	return player_data

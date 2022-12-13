@@ -19,6 +19,8 @@ func _physics_process(delta):
 			if player_state.has("FH"):
 				player_fh = player_state["FH"]
 			var player = Players.get_node(str(player_id))
+			server.player_state_collection[player_id]["health"] = player.stats.health
+			server.player_state_collection[player_id]["max_health"] = player.stats.max_health
 			player.update_player(player_pos, player_fh)
 	for enemy in enemy_list:
 		if enemies.has_node(str(enemy)):

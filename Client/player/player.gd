@@ -83,3 +83,6 @@ func on_hurt_animation_finished():
 func move_player(new_position, animation, flip_h):
 	pass
 	
+func health(health, max_health):
+	var healthPercent = health/float(max_health) * 100
+#	healthBar.value = healthPercent

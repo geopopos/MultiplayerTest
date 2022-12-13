@@ -4,7 +4,8 @@ const MAXSPEED: int = 80
 var velocity : Vector2 = Vector2.ZERO
 var Server : Node
 
-var health = 3
+
+
 var receives_knockback = true
 var knockback_multiplier = 15
 
@@ -13,6 +14,7 @@ onready var animationPlayer = $AnimationPlayer
 onready var hitboxCollision = $HitBox/CollisionShape2D
 onready var hurtboxCollision = $HurtBox/CollisionShape2D
 onready var hurtBoxDisabledTimer = $HurtBoxDisabledTimer
+onready var stats = $Stats
 
 enum {
 	MOVE,
@@ -57,10 +59,10 @@ func _on_attack_animation_finished():
 
 func _on_HurtBox_area_entered(area):
 	var damage = area.damage
-	health -= damage
+	stats.health -= damage
 	var attacker = area.get_parent()
 	received_knockback(attacker, damage)
-	Server.send_player_damage(name, health, global_position)
+	Server.send_player_damage(name, stats.health, global_position)
 	hurtboxCollision.set_deferred("disabled", true)
 	hurtBoxDisabledTimer.start()
 

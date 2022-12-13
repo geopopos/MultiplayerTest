@@ -5,7 +5,7 @@ var world_state = {}
 func _physics_process(delta):
 	if not get_parent().player_state_collection.empty():
 		world_state["Players"] = get_parent().player_state_collection.duplicate(true)
-		
+#		print(world_state["Players"])
 		for player in world_state["Players"].keys():
 			world_state["Players"][player].erase("T")
 		world_state["T"] = OS.get_system_time_msecs()
