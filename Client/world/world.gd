@@ -51,8 +51,7 @@ func remove_player(player_id):
 func remove_enemy(enemy_name):
 	print("remove_enemy " + enemy_name)
 	var enemy = enemies.get_node(str(enemy_name))
-	print(enemy)
-	enemies.remove_child(enemy)
+	enemy.death()
 
 func update_world_state(world_state):
 	if world_state["T"] > last_world_state:

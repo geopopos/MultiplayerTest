@@ -97,7 +97,7 @@ func _on_HurtBox_area_entered(area):
 	var m = sqrt(knockback.x*knockback.x + knockback.y*knockback.y)
 	knockback.x /= m
 	knockback.y /= m
-	knockback = knockback * 125
+	knockback = knockback * 150
 
 func _on_Stats_no_health():
 	gameWorld.remove_enemy(str(name))

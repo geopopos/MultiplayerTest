@@ -6,6 +6,14 @@ for enemy
 
 [x] create players sub-dictionary in world state for easier processing client side
 
+TO-DO:
+[x] set up enemy death animation client side
+[] set up player health, death, respawn, and combat system
+[] goats that cary extra inventory. if the goat get's killed it drops all their inventory and they have to buy a new goat
+
+
+
+
 [] set up chat
 
 
