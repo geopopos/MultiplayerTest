@@ -67,11 +67,7 @@ func _physics_process(delta):
 			world_state_buffer.remove(0)
 		if world_state_buffer.size() > 2: # has future state
 			var interpolation_factor = float(render_time - world_state_buffer[1].T) / float(world_state_buffer[2].T - world_state_buffer[1].T)
-			for player in world_state_buffer[2].keys():
-				if str(player) == "T":
-					continue
-				if str(player) == "Enemies":
-					continue
+			for player in world_state_buffer[2]["Players"].keys():
 				if player == get_tree().get_network_unique_id():
 					continue
 				if not world_state_buffer[1].has(player):
@@ -100,11 +96,7 @@ func _physics_process(delta):
 					spawn_new_enemy(enemy, world_state_buffer[2]["Enemies"][enemy])
 		elif render_time > world_state_buffer[1].T:
 			var extrapolation_factor = float(render_time - world_state_buffer[0].T) / float(world_state_buffer[1].T - world_state_buffer[0].T) - 1.00
-			for player in world_state_buffer[1].keys():
-				if str(player) == "T":
-					continue
-				if str(player) == "Enemies":
-					continue
+			for player in world_state_buffer[1]["Players"].keys():
 				if player == get_tree().get_network_unique_id():
 					continue
 				if not world_state_buffer[0].has(player):

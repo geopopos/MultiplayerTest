@@ -4,8 +4,9 @@ for enemy
    [x] set up enemy health client side visuals
    [] add better chase algorithm
 
-[] create players sub-dictionary in world state for easier processing client side
+[x] create players sub-dictionary in world state for easier processing client side
 
+[] set up chat
 
 
 12122022
@@ -19,7 +20,6 @@ for enemy
    [x] enemy removal on death
       [x] ran into an issue with interpolation. need to wait .2 seconds before despawning enemy so that interpolation does not respawn
    [] set up enemy health
-   [] add better chase algorithm (a*?)
 
 
 
@@ -42,9 +42,10 @@ Now when the player hurt animation starts it doesn't stop. I have a feeling, it 
 [x] add mesage responses on response when logging in
 ------------
 
-[] set up chat
 [x] set up enemy spawning, and shared enemy combat
 
+
+[] add better chase algorithm (a*?) - for enemy
 [] fix username labels
 
 [] set up character creator
