@@ -8,7 +8,27 @@ for enemy
 
 TO-DO:
 [x] set up enemy death animation client side
-[] set up player health, death, respawn, and combat system
+[x] set up player health, 
+    [x] set up client side player health (specifically for player - should be in overarching ui)
+       - I'm going to set up enemy hitboxes to test this so I don't have to run two instances of the client
+         - added successfully
+    [] death
+        - death animation looping on player side other players do not see it though, I think I need to add the death animation to the playertemplate
+        - the looping issue seems to be coming from the server
+	[] having issue with player death animation
+        [] reset player stats etc
+    [] respawn
+
+[] set up bat hitboxes
+
+[] set up player rolling
+
+
+
+[] get my own graphics designed
+
+
+
 [] goats that cary extra inventory. if the goat get's killed it drops all their inventory and they have to buy a new goat
 
 

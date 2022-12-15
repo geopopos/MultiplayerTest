@@ -103,7 +103,12 @@ remote func fetch_players():
 	var id = get_tree().get_rpc_sender_id()
 	rpc_id(id, "receive_players", players)
 	
-
+func kill_player(player_id):
+	rpc("kill_player", player_id)
+	
+func send_player_health(player_id, health, max_health):
+	print("send player health")
+	rpc_id(player_id, "receive_player_health", health, max_health)
 
 remote func receive_player_state(player_state):
 	var player_id = get_tree().get_rpc_sender_id()
@@ -148,14 +153,14 @@ func set_player_animation(id, animation):
 	player_state_collection[id]["A"] = "Idle"
 	print(player_state_collection)
 
-func send_player_damage(name, health, global_position):
+func send_player_damage(name, health, global_position, max_health):
 	print("set player hurt")
 	# add updating player health here as well
 	players[int(name)]["health"] = health
 	rset("players", players)
 	player_state_collection[int(name)]["P"] = global_position
 	player_state_collection[int(name)]["A"] = "Hurt"
-	rpc_id(int(name), "set_player_knockback", name, global_position)
+	rpc_id(int(name), "set_player_knockback", name, global_position, health, max_health)
 
 func kill_enemy(enemy_name):
 	print("Kill enemy " + enemy_name)

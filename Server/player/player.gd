@@ -62,7 +62,7 @@ func _on_HurtBox_area_entered(area):
 	stats.health -= damage
 	var attacker = area.get_parent()
 	received_knockback(attacker, damage)
-	Server.send_player_damage(name, stats.health, global_position)
+	Server.send_player_damage(name, stats.health, global_position, stats.max_health)
 	hurtboxCollision.set_deferred("disabled", true)
 	hurtBoxDisabledTimer.start()
 
@@ -79,3 +79,11 @@ func _on_HurtBoxDisabledTimer_timeout():
 	print("hurt done")
 	Server.set_player_animation(int(name), "Idle")
 	hurtboxCollision.set_deferred("disabled", false)
+
+
+func _on_Stats_no_health():
+	Server.kill_player(str(name))
+
+
+#func _on_Stats_health_changed():
+#	Server.send_player_health(str(name), stats.health, stats.max_health)

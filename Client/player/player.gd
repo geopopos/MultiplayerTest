@@ -7,6 +7,7 @@ var move_on : bool = false
 
 onready var sprite : Node = $Sprite
 onready var animationPlayer : Node = $AnimationPlayer
+onready var stats : Node = $Stats
 
 var input_direction : Vector2
 
@@ -15,7 +16,8 @@ var animation_state : String = "Idle"
 enum {
 	MOVE,
 	ATTACK,
-	HURT
+	HURT,
+	DEATH
 }
 
 var state = MOVE setget set_state
@@ -32,6 +34,8 @@ func _physics_process(_delta):
 			move_state()
 		ATTACK:
 			attack_state()
+		DEATH:
+			death_state()
 	DefinePlayerState()
 	
 func DefinePlayerState():
@@ -65,6 +69,13 @@ func attack_state():
 	animationPlayer.play("Attack")
 	animation_state = "Attack"
 	
+func player_death():
+	print("PLAYER STATE SET TO DEATH")
+	state = DEATH
+	
+func death_state():
+	animationPlayer.play("Death")
+	
 func attack_animation_finished():
 	set_state(MOVE)
 	animationPlayer.play("Idle")
@@ -84,5 +95,11 @@ func move_player(new_position, animation, flip_h):
 	pass
 	
 func health(health, max_health):
+	stats.health = health
+	stats.max_health = max_health
 	var healthPercent = health/float(max_health) * 100
-#	healthBar.value = healthPercent
+
+func _on_Stats_no_health():
+	# run player death sequence
+	# give player ability to respawn <-- In death sequence?
+	pass

@@ -29,7 +29,8 @@ func _ready():
 func move_player(new_position, animation, flip_h):
 	sprite.flip_h = flip_h
 	global_position = new_position
-	animationPlayer.play(animation)
+	if not animationPlayer.current_animation == "Hurt":
+		animationPlayer.play(animation)
 
 
 func take_damage():
@@ -45,5 +46,9 @@ func _on_hurt_animation_finished():
 func health(health, max_health):
 	var healthPercent = health/float(max_health) * 100
 	healthBar.value = healthPercent
+
+func player_death():
+	animationPlayer.play("Death")
+	
 	
 

@@ -157,6 +157,7 @@ remote func remove_player(player_id):
 func send_player_state(player_state):
 	rpc_unreliable_id(1, "receive_player_state", player_state)
 	
+	
 remote func receive_world_state(world_state):
 	if has_node("World"):
 		gameWorld.update_world_state(world_state)
@@ -182,10 +183,13 @@ remote func receive_world_state(world_state):
 func send_player_attacked():
 	rpc_id(1, "player_triggered_attack", local_player_id)
 	
-remote func set_player_knockback(id, global_position):
+remote func set_player_knockback(id, global_position, health, max_health):
+	print("knockback received")
 	var player = gamePlayers.get_node(str(id))
 	player.global_position = global_position
-	player.take_damage()
+#	player.take_damage()
+	player.health(health, max_health)
+	
 
 remote func receive_player_attack(id):
 	print("received_player_attack")
@@ -197,7 +201,11 @@ remote func kill_enemy(enemy_name):
 	#  yield so that interpolation function does not respawn enemy
 	yield(get_tree().create_timer(0.2), "timeout")
 	gameWorld.remove_enemy(enemy_name)
-	
+
+remote func kill_player(player_id):
+	yield(get_tree().create_timer(0.2), "timeout")
+	print("kill player " + str(player_id))
+	gameWorld.kill_player(player_id)
 
 ## player verification system
 remote func FetchToken():
