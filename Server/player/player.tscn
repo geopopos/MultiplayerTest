@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/player_sprites/player.png" type="Texture" id=1]
 [ext_resource path="res://player/player.gd" type="Script" id=2]
@@ -50,6 +50,9 @@ tracks/2/keys = {
 } ]
 }
 
+[sub_resource type="Animation" id=7]
+resource_name = "Death"
+
 [sub_resource type="Animation" id=2]
 resource_name = "Idle"
 length = 0.6
@@ -85,7 +88,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 5.5, 10 )
+extents = Vector2( 7, 10 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 5, 6.5 )
@@ -99,7 +102,7 @@ position = Vector2( 0, -15 )
 texture = ExtResource( 1 )
 hframes = 6
 vframes = 5
-frame = 15
+frame = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -114,6 +117,7 @@ align = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Idle"
 anims/Attack = SubResource( 4 )
+anims/Death = SubResource( 7 )
 anims/Idle = SubResource( 2 )
 anims/Walking = SubResource( 3 )
 
@@ -123,7 +127,7 @@ collision_mask = 12
 script = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-position = Vector2( 12.5, -2 )
+position = Vector2( 14, -2 )
 shape = SubResource( 5 )
 disabled = true
 

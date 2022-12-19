@@ -70,11 +70,20 @@ func attack_state():
 	animation_state = "Attack"
 	
 func player_death():
-	print("PLAYER STATE SET TO DEATH")
+	animationPlayer.play("Death")
 	state = DEATH
 	
 func death_state():
-	animationPlayer.play("Death")
+	if Input.is_action_just_pressed("attack") and is_network_master():
+		respawn()
+		
+func respawn():
+	state = MOVE
+	Server.respawn_player()
+	stats.stats_reset()
+	
+func _on_death_animation_finished():
+	animationPlayer.stop()
 	
 func attack_animation_finished():
 	set_state(MOVE)

@@ -32,6 +32,7 @@ radius = 5.0
 height = 6.0
 
 [sub_resource type="CircleShape2D" id=4]
+radius = 6.0
 
 [node name="Bat" type="KinematicBody2D"]
 script = ExtResource( 2 )
@@ -72,6 +73,7 @@ collision_mask = 4
 script = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2( 0, -16 )
 shape = SubResource( 4 )
 
 [connection signal="no_health" from="Stats" to="." method="_on_Stats_no_health"]

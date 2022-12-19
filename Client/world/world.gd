@@ -56,6 +56,7 @@ func remove_enemy(enemy_name):
 func kill_player(player_id):
 	var player = players.get_node(str(player_id))
 	player.player_death()
+	
 
 func update_world_state(world_state):
 	if world_state["T"] > last_world_state:
@@ -85,7 +86,6 @@ func _physics_process(delta):
 					if world_state_buffer[2]["Players"][player].has("FH"):
 						flip_h = world_state_buffer[2]["Players"][player]["FH"]
 					players.get_node(str(player)).move_player(new_position, animation_state, flip_h)	
-					print("Player Health " + str(world_state_buffer[1]["Players"][player]["health"]))
 					players.get_node(str(player)).health(world_state_buffer[1]["Players"][player]["health"], world_state_buffer[1]["Players"][player]["max_health"])
 				else:
 					spawn_new_player(player, world_state_buffer[2]["Players"][player]["P"], Server.players[int(player)]["player_name"], false)

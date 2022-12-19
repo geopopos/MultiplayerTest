@@ -24,3 +24,7 @@ func set_health(value):
 
 func _ready():
 	self.health = max_health
+
+func stats_reset():
+	health = max_health
+	healthBar.value = (float(health)/max_health) * 100

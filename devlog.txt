@@ -1,3 +1,21 @@
+12182022
+[] add god mode server-side where you can drag players around
+[] set up player rolling
+[x] set up player health, 
+    [x] set up client side player health (specifically for player - should be in overarching ui)
+       - I'm going to set up enemy hitboxes to test this so I don't have to run two instances of the client
+         - added successfully
+    [] death
+        - death animation looping on player side other players do not see it though, I think I need to add the death animation to the playertemplate
+        - the looping issue seems to be coming from the server
+	[x] having issue with player death animation
+        [x] reset player stats etc
+    [x] respawn
+
+[] fix bat wander state
+[] fix player knockback
+
+
 12132022
 continuation of enemy set up from yesterday.
 for enemy
@@ -19,9 +37,8 @@ TO-DO:
         [] reset player stats etc
     [] respawn
 
-[] set up bat hitboxes
+[x] set up bat hitboxes
 
-[] set up player rolling
 
 
 

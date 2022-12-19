@@ -161,6 +161,12 @@ func send_player_damage(name, health, global_position, max_health):
 	player_state_collection[int(name)]["P"] = global_position
 	player_state_collection[int(name)]["A"] = "Hurt"
 	rpc_id(int(name), "set_player_knockback", name, global_position, health, max_health)
+	
+	
+remote func respawn_player(player_id):
+	var player = gamePlayers.get_node(str(player_id))
+	player.respawn_player()
+	
 
 func kill_enemy(enemy_name):
 	print("Kill enemy " + enemy_name)

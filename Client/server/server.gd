@@ -206,6 +206,10 @@ remote func kill_player(player_id):
 	yield(get_tree().create_timer(0.2), "timeout")
 	print("kill player " + str(player_id))
 	gameWorld.kill_player(player_id)
+	
+func respawn_player():
+	var player_id = get_tree().get_network_unique_id()
+	rpc_id(1, "respawn_player", player_id)
 
 ## player verification system
 remote func FetchToken():

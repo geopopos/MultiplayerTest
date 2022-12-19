@@ -5,7 +5,6 @@ var velocity : Vector2 = Vector2.ZERO
 var Server : Node
 
 
-
 var receives_knockback = true
 var knockback_multiplier = 15
 
@@ -18,7 +17,8 @@ onready var stats = $Stats
 
 enum {
 	MOVE,
-	ATTACK
+	ATTACK,
+	DEATH
 }
 
 var state = MOVE setget set_state
@@ -76,14 +76,32 @@ func received_knockback(attacker: Node, damage: int):
 
 
 func _on_HurtBoxDisabledTimer_timeout():
-	print("hurt done")
-	Server.set_player_animation(int(name), "Idle")
-	hurtboxCollision.set_deferred("disabled", false)
+	if not state == DEATH:
+		print("hurt done")
+		Server.set_player_animation(int(name), "Idle")
+		hurtboxCollision.set_deferred("disabled", false)
 
 
 func _on_Stats_no_health():
+	state = DEATH
+	print("Player Died")
+	hurtboxCollision.set_deferred("disabled", true)
+	Server.player_state_collection[int(name)]["A"] = "Death"
 	Server.kill_player(str(name))
-
+	var deathTimer := Timer.new()
+	deathTimer.wait_time = 0.4
+	deathTimer.one_shot = true
+	deathTimer.connect("timeout", self, "on_deathTimer_timeout")
+	deathTimer.start()
+	
+func _on_deathTimer_timeout():
+	Server.player_state_collection[int(name)]["A"] = "Idle"
+	
+func respawn_player():
+	state = MOVE
+	hurtBoxDisabledTimer.start()
+	stats.stats_reset()
+	
 
 #func _on_Stats_health_changed():
 #	Server.send_player_health(str(name), stats.health, stats.max_health)
